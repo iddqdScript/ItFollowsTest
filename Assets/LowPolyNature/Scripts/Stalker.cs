@@ -91,9 +91,9 @@ public class Stalker : MonoBehaviour
 
         Vector3 newPos = Player.transform.position;//transform.position - dirToPlayer;
 
-        Debug.Log("newpos is " + newPos);
+        //Debug.Log("newpos is " + newPos);
         //Debug.Log("Sheep position is " + transform.position);
-        Debug.Log("player position is " + Player.transform.position);
+        //Debug.Log("player position is " + Player.transform.position);
 
 
 
