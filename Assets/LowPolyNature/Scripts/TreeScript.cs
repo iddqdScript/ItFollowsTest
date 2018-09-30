@@ -49,7 +49,7 @@ public class TreeScript : MonoBehaviour
                     mIsDead = true;
                     mAgent.enabled = false;
                     Destroy(GetComponent<Rigidbody>());
-                    Debug.Log(transform.name + " is ded");
+                    Debug.Log(transform.name + " is dead");
 
                     Invoke("ShowItemsDeadState", 1.2f);
                 }

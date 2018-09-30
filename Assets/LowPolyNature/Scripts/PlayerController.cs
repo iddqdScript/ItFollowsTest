@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetItemActive(InventoryItemBase item, bool active)
     {
+        Debug.Log("Picked up " + item);
         GameObject currentItem = (item as MonoBehaviour).gameObject;
         currentItem.SetActive(active);
         currentItem.transform.parent = active ? Hand.transform : null;
@@ -114,9 +115,12 @@ public class PlayerController : MonoBehaviour
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             if (stateInfo.fullPathHash == Attack_1_Hash)
             {
+                //Debug.Log("Not attacking");
                 return true;
             }
+            //Debug.Log("Not attacking");
             return false;
+           
         }
     }
 
@@ -190,7 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             if (mCurrentItem == null)
                 return false;
-
+            Debug.Log("IsArmed = " + mCurrentItem);
             return mCurrentItem.ItemType == EItemType.Weapon;
         }
     }

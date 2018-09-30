@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//
+// Interacting with items, Like the axe on the ground
+//
+
+
+
 public enum EItemType
 {
     Default,

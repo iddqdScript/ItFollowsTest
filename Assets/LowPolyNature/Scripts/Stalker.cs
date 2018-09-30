@@ -87,7 +87,7 @@ public class Stalker : MonoBehaviour
         // Run away from player
         
             // Vector player to me
-            Vector3 dirToPlayer = transform.position + Player.transform.position;
+            //Vector3 dirToPlayer = transform.position + Player.transform.position;
 
         Vector3 newPos = Player.transform.position;//transform.position - dirToPlayer;
 
