@@ -243,14 +243,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!IsDead)
-        {
-            // Drop item
-            if (mCurrentItem != null && Input.GetKeyDown(KeyCode.R))
-            {
-                DropCurrentItem();
-            }
-        }
+        //if (!IsDead)
+        //{
+        //    // Drop item
+        //    if (mCurrentItem != null && Input.GetKeyDown(KeyCode.R))
+        //    {
+        //        DropCurrentItem();
+        //    }
+        //}
     }
 
     private bool mIsControlEnabled = true;
@@ -331,15 +331,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InteractWithItem()
+    public void InteractWithItem() //where is this being called???????
     {
         if (mInteractItem != null)
         {
             mInteractItem.OnInteract();
 
-            if (mInteractItem is InventoryItemBase)
+            if (mInteractItem is InventoryItemBase) //If the interactable item is an InventoryItemBase (like axe)
             {
-                InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;
+                InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;// inventoryItem becomes the interacted with item if it is an Instance of InventoryItemBase? (as is like is keyword + cast) 
                 Inventory.AddItem(inventoryItem);
                 inventoryItem.OnPickup();
 
@@ -348,6 +348,10 @@ public class PlayerController : MonoBehaviour
                     Inventory.UseItem(inventoryItem);
                 }
             }
+        }
+        else
+        {
+            Debug.Log("mInteractItem is null");
         }
 
         Hud.CloseMessagePanel();
