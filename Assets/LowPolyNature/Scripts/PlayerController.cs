@@ -21,9 +21,15 @@ public class PlayerController : MonoBehaviour
 
     private HealthBar mFoodBar;
 
+    private WCLevel mWCLevel;
+
     private int startHealth;
 
+    private int startLevel;
+
     private int startFood;
+
+ 
 
     #endregion
 
@@ -56,6 +62,12 @@ public class PlayerController : MonoBehaviour
         mHealthBar.Max = Health;
         startHealth = Health;
         mHealthBar.SetValue(Health);
+
+        mWCLevel = Hud.transform.Find("WoodcuttingSkill").GetComponent<WCLevel>();
+        mWCLevel.Min = 1;
+        mWCLevel.Max = 99;
+        startLevel = Level;
+        mWCLevel.SetValue(12);
 
         mFoodBar = Hud.transform.Find("Bars_Panel/FoodBar").GetComponent<HealthBar>();
         mFoodBar.Min = 0;
@@ -161,6 +173,8 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Amount of food")]
     public int Food = 100;
+
+    public int Level = 1;
 
     [Tooltip("Rate in seconds in which the hunger increases")]
     public float HungerRate = 0.5f;
