@@ -9,7 +9,13 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
 
+    private Rigidbody _rigidbody;
+
     private CharacterController _characterController;
+
+    public GameObject GOTESTGATHER;
+
+    public InventoryItemBase TESTGATHER;
 
     private float Gravity = 20.0f;
 
@@ -28,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private int startLevel;
 
     private int startFood;
+
+
 
  
 
@@ -52,6 +60,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
         Inventory.ItemUsed += Inventory_ItemUsed;
@@ -194,6 +203,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsPlayerMoving
+    {
+        get
+        {
+            return _rigidbody.velocity.magnitude > 0.1f;
+        }
+    }
+
     public bool IsDead
     {
         get
@@ -208,7 +225,7 @@ public class PlayerController : MonoBehaviour
         {
             if (mCurrentItem == null)
                 return false;
-            Debug.Log("IsArmed = " + mCurrentItem);
+            //Debug.Log("IsArmed = " + mCurrentItem);
             return mCurrentItem.ItemType == EItemType.Weapon;
         }
     }
@@ -282,6 +299,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get Input for axis
+        float h = Input.GetAxis("Horizontal");//forward & backward
+        float v = Input.GetAxis("Vertical");//Left & Right
+
+        //Debug.Log("h = " + h);
+        //Debug.Log("v = " + v);
+        //Debug.Log("_movedirection = " + _moveDirection);
+
+                                                                 //Testing section
+                                                                if (Input.GetKeyDown(KeyCode.V))
+                                                                {
+                                                                    Debug.Log("v was pressed");
+                                                                    var TG = Instantiate(TESTGATHER,transform.position,transform.rotation);
+
+                                                                    Inventory.AddItem(TG);
+                                                                    //Destroy(GOTESTGATHER);
+                                                                 // DestroyImmediate(GOTESTGATHER, true);
+                                                                    
+                                                                    
+
+
+        }
+
+
+
         if (!IsDead && mIsControlEnabled)
         {
             // Interact with the item
@@ -302,9 +344,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            // Get Input for axis
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+           
 
             // Calculate the forward vector
             Vector3 camForward_Dir = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -336,6 +376,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _animator.SetBool("is_in_air", false);
                     _animator.SetBool("run", move.magnitude > 0);
+
                 }
             }
 
@@ -345,16 +386,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InteractWithItem() //where is this being called???????
+    public void InteractWithItem() //Being called in the animation events
     {
         if (mInteractItem != null)
         {
             mInteractItem.OnInteract();
-
+            
             if (mInteractItem is InventoryItemBase) //If the interactable item is an InventoryItemBase (like axe)
             {
                 InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;// inventoryItem becomes the interacted with item if it is an Instance of InventoryItemBase? (as is like is keyword + cast) 
                 Inventory.AddItem(inventoryItem);
+                
                 inventoryItem.OnPickup();
 
                 if (inventoryItem.UseItemAfterPickup)

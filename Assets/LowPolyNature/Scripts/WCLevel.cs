@@ -20,7 +20,7 @@ public class WCLevel : MonoBehaviour
 
     public void SetValue(int WCLevel)
     {
-        Debug.Log("We in here");
+        
         TxtWCLevel.text = string.Format("12");
 
         //if (WCLevel != mCurrentValue)
