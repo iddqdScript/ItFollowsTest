@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _characterController;
 
-    public GameObject GOTESTGATHER;
-
     public InventoryItemBase TESTGATHER;
 
     private float Gravity = 20.0f;
@@ -310,17 +308,23 @@ public class PlayerController : MonoBehaviour
                                                                  //Testing section
                                                                 if (Input.GetKeyDown(KeyCode.V))
                                                                 {
-                                                                    Debug.Log("v was pressed");
+                                                                    
+                                                                    //Debug.Log("v was pressed");
                                                                     var TG = Instantiate(TESTGATHER,transform.position,transform.rotation);
+            Debug.Log("TESTGATHER = " + TESTGATHER);
+            Debug.Log("TG = " + TG);
+            Debug.Log("Char Local Pos = " + transform.localPosition);
 
-                                                                    Inventory.AddItem(TG);
-                                                                    //Destroy(GOTESTGATHER);
-                                                                 // DestroyImmediate(GOTESTGATHER, true);
-                                                                    
-                                                                    
+            Inventory.AddItem(TG);
+            Object.Destroy(TG.transform.gameObject);
+
+            Destroy(TG,1);
+            DestroyImmediate(TG, true);
 
 
-        }
+
+
+                                                                }
 
 
 

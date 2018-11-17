@@ -13,10 +13,10 @@ public class WCTreeScript : MonoBehaviour
     private PlayerController Pcon;
     public Inventory Inventory;
     public GameObject Player;
-    public GameObject GatheredItem;
+    public InventoryItemBase GatheredItem;
    // Gem gem = new Gem();
+   private bool mIsCutting = false;
 
-    private bool mIscutting = false;
 
     public GameObject[] ItemsDeadState = null;
 
@@ -38,13 +38,15 @@ public class WCTreeScript : MonoBehaviour
             {
                 if (Player.GetComponent<PlayerController>().IsAttacking)
                 {
+
                     //if(Pcon.)
-                    
+
                     //mAgent.enabled = false;
                     ///Destroy(GetComponent<Rigidbody>());
-                   
-                    StartCoroutine(CutTree());
-
+                    if (mIsCutting == false)
+                    {
+                        StartCoroutine(CutTree());
+                    }
 
 
                     // Invoke("ShowItemsDeadState", 1.2f);
@@ -55,8 +57,10 @@ public class WCTreeScript : MonoBehaviour
 
     IEnumerator CutTree()
     {
+
+
         //<color=red>Fatal error:</color>
-        mIscutting = true;
+        mIsCutting = true;
         int logsCut = 0;
 
         int storedTreeLogs = Random.Range(3, 9);
@@ -64,33 +68,63 @@ public class WCTreeScript : MonoBehaviour
         Debug.Log("<color=red>this tree has " + storedTreeLogs + " logs </color>");
         int wait_time = Random.Range(4, 7);
 
-        if (mIscutting == true)
-          {
+        if (mIsCutting == true)
+          {           
             for (int i = 0; i != storedTreeLogs; i++)
-                {
+            {
 
                 int logsleft = storedTreeLogs - i;
-                            print("iteration = " +i);
-                            //Debug.Log("       I is " + i);
-                            Debug.Log(transform.name + " is being cut");
-                            Debug.Log("<color=red>this tree has " + logsleft + " logs left</color>");
-                            Debug.Log("waiting for " + wait_time + " seconds");
+                print("iteration = " + i);
+                //Debug.Log("       I is " + i);
+                Debug.Log(transform.name + " is being cut");
+                Debug.Log("<color=red>this tree has " + logsleft + " logs left</color>");
+                Debug.Log("waiting for " + wait_time + " seconds");
                 yield return new WaitForSeconds(wait_time);
-                            Debug.Log("<color=green>LOG CUT</color>");
+                if (GatheredItem != null)
+                {
+
+                    var TG = Instantiate(GatheredItem, Player.transform.position, Player.transform.rotation);
+
+                    if (TG != null)
+                    {
+
+                        Debug.Log("TG = " + TG);
+
+                        Inventory.AddItem(TG);
+                        Object.Destroy(TG.transform.gameObject);
+                        Debug.Log("<color=green>LOG CUT</color>");
+                        //Debug.Log("TESTGATHER = " + GatheredItem);
+
+                        //Debug.Log("Char Local Pos = " + transform.localPosition);
+                    }
+                    else
+                    {
+                        Debug.Log("TG is null: " + TG);
+                    }
+                }
+                else
+                {
+                    Debug.Log("GatheredItem is null: " + GatheredItem);
+                }
+
+
+                
 
 
             }
-           }
-        Destroy(GetComponent<Rigidbody>());
-        Debug.Log("mcutting is " + mIscutting);
-        mIscutting = false;
+        }
+        
+        Debug.Log("mcutting is " + mIsCutting);
+        mIsCutting = false;
         Debug.Log("<color=red> END!!!!!!!!!!!!!!!!!!!!</color>");
+        Destroy(transform.gameObject);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (mIscutting)
+        if (mIsCutting)
             return;
     }
     
