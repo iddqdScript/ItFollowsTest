@@ -143,8 +143,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void 
-        CurrentItem()
+    public void DropCurrentItem()
     {
         _animator.SetTrigger("tr_drop");
 

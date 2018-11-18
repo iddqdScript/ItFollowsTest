@@ -91,7 +91,7 @@ public class WCTreeScript : MonoBehaviour
                 if (GatheredItem != null)
                 {
 
-                    var TG = Instantiate(GatheredItem, Player.transform.position, Player.transform.rotation);
+                    var TG = Instantiate(GatheredItem, ActivePlayer.transform.position, ActivePlayer.transform.rotation);
 
                     if (TG != null)
                     {
