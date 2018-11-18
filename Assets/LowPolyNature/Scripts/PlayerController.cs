@@ -143,7 +143,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DropCurrentItem()
+    public void 
+        CurrentItem()
     {
         _animator.SetTrigger("tr_drop");
 
@@ -151,6 +152,7 @@ public class PlayerController : MonoBehaviour
 
         Inventory.RemoveItem(mCurrentItem);
 
+        // Throw animation
         // Throw animation
         Rigidbody rbItem = goItem.AddComponent<Rigidbody>();
         if (rbItem != null)
@@ -311,15 +313,15 @@ public class PlayerController : MonoBehaviour
                                                                     
                                                                     //Debug.Log("v was pressed");
                                                                     var TG = Instantiate(TESTGATHER,transform.position,transform.rotation);
-            Debug.Log("TESTGATHER = " + TESTGATHER);
-            Debug.Log("TG = " + TG);
-            Debug.Log("Char Local Pos = " + transform.localPosition);
+                                                                        Debug.Log("TESTGATHER = " + TESTGATHER);
+                                                                        Debug.Log("TG = " + TG);
+                                                                        Debug.Log("Char Local Pos = " + transform.localPosition);
 
-            Inventory.AddItem(TG);
-            Object.Destroy(TG.transform.gameObject);
+                                                                        Inventory.AddItem(TG);
+                                                                        Object.Destroy(TG.transform.gameObject);
 
-            Destroy(TG,1);
-            DestroyImmediate(TG, true);
+                                                                        Destroy(TG,1);
+                                                                        DestroyImmediate(TG, true);
 
 
 

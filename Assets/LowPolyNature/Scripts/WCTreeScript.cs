@@ -12,10 +12,16 @@ public class WCTreeScript : MonoBehaviour
     //private Animator mAnimator;
     private PlayerController Pcon;
     public Inventory Inventory;
+    public static Inventory ActiveInventory;
     public GameObject Player;
+    public static GameObject ActivePlayer;
     public InventoryItemBase GatheredItem;
    // Gem gem = new Gem();
    private bool mIsCutting = false;
+    
+
+
+
 
 
     public GameObject[] ItemsDeadState = null;
@@ -23,7 +29,9 @@ public class WCTreeScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        //Gets the active player object in scene - Use ActivePlayer instead of Player
+        ActivePlayer = Player;
+        ActiveInventory = Inventory;
         //mAnimator = GetComponent<Animator>();
     }
 
@@ -36,7 +44,7 @@ public class WCTreeScript : MonoBehaviour
             // Hit by a weapon
             if (item.ItemType == EItemType.Weapon)
             {
-                if (Player.GetComponent<PlayerController>().IsAttacking)
+                if (ActivePlayer.GetComponent<PlayerController>().IsAttacking)
                 {
 
                     //if(Pcon.)
@@ -90,7 +98,7 @@ public class WCTreeScript : MonoBehaviour
 
                         Debug.Log("TG = " + TG);
 
-                        Inventory.AddItem(TG);
+                        ActiveInventory.AddItem(TG);
                         Object.Destroy(TG.transform.gameObject);
                         Debug.Log("<color=green>LOG CUT</color>");
                         //Debug.Log("TESTGATHER = " + GatheredItem);
