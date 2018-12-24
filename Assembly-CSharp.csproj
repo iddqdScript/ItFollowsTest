@@ -64,6 +64,7 @@
      <Compile Include="Assets\LowPolyNature\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\InventoryItemBase.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\InventorySlot.cs" />
+     <Compile Include="Assets\LowPolyNature\Scripts\InventPanelButtons.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\ItemClickHandler.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\ItemDragHandler.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\ItemDropHandler.cs" />

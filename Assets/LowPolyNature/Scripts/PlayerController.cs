@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
 
     private Rigidbody _rigidbody;
+
+    private NavMeshAgent _navMeshAgent;
 
     private CharacterController _characterController;
 
@@ -61,6 +64,10 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        //_navMeshAgent.updatePosition = false;
+        //_navMeshAgent.updateRotation = false;
+
         Inventory.ItemUsed += Inventory_ItemUsed;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
 
@@ -392,6 +399,35 @@ public class PlayerController : MonoBehaviour
             _moveDirection.y -= Gravity * Time.deltaTime;
 
             _characterController.Move(_moveDirection * Time.deltaTime);
+
+            //***************************************Enable Navmesh Agent***********************************
+
+            //Click to move script
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit hit;
+
+            //if(Input.GetMouseButtonDown(0))
+            //{
+            //    if(Physics.Raycast(ray,out hit, 100))
+            //    {
+            //        //_navMeshAgent.updatePosition = true;
+            //        //_navMeshAgent.updateRotation = true;
+            //        _navMeshAgent.destination = hit.point;
+            //        //_navMeshAgent.updatePosition = false;
+            //        //_navMeshAgent.updateRotation = false;
+            //    }
+            //}
+
+            //if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            //{
+            //    _animator.SetBool("run",false);
+            //}
+            //else
+            //{
+            //    _animator.SetBool("run", true);
+            //}
+
+
         }
     }
 
