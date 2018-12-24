@@ -30,7 +30,7 @@ public class WCTreeScript : MonoBehaviour
     void Start()
     {
         //Gets the active player object in scene - Use ActivePlayer instead of Player
-        ActivePlayer = GameObject.Find("PlayerCharacter");
+        ActivePlayer = GameObject.Find("Low Poly Warrior");
         ActiveInventory = (Inventory)FindObjectOfType(typeof(Inventory));
 
         //mAnimator = GetComponent<Animator>();

@@ -9,6 +9,7 @@ public class Food : InventoryItemBase
     public override void OnUse()
     {
         GameManager.Instance.Player.Eat(FoodPoints);
+        
 
         GameManager.Instance.Player.Inventory.RemoveItem(this);
 

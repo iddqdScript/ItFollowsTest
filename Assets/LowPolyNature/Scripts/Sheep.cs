@@ -10,7 +10,7 @@ public class Sheep : MonoBehaviour
     private Animator mAnimator;
 
     public GameObject Player;
-
+    public static GameObject ActivePlayer;
     public float EnemyDistanceRun = 4.0f;
 
     private bool mIsDead = false;
@@ -20,6 +20,7 @@ public class Sheep : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ActivePlayer = GameObject.Find("Low Poly Warrior");
         mAgent = GetComponent<NavMeshAgent>();
 
         mAnimator = GetComponent<Animator>();
@@ -42,7 +43,7 @@ public class Sheep : MonoBehaviour
             // Hit by a weapon
             if (item.ItemType == EItemType.Weapon)
             {
-                if (Player.GetComponent<PlayerController>().IsAttacking)
+                if (ActivePlayer.GetComponent<PlayerController>().IsAttacking)
                 {
                     mIsDead = true;
                     mAgent.enabled = false;
@@ -78,17 +79,17 @@ public class Sheep : MonoBehaviour
             return;
 
         // Only runaway if player is armed
-        bool isPlayerArmed = Player.GetComponent<PlayerController>().IsArmed;
+        bool isPlayerArmed = ActivePlayer.GetComponent<PlayerController>().IsArmed;
 
         // Performance optimization: Thx to kyl3r123 :-)
-        float squaredDist = (transform.position - Player.transform.position).sqrMagnitude;
+        float squaredDist = (transform.position - ActivePlayer.transform.position).sqrMagnitude;
         float EnemyDistanceRunSqrt = EnemyDistanceRun * EnemyDistanceRun;
 
         // Run away from player
         if (squaredDist < EnemyDistanceRunSqrt && isPlayerArmed)
         {
             // Vector player to me
-            Vector3 dirToPlayer = transform.position - Player.transform.position;
+            Vector3 dirToPlayer = transform.position - ActivePlayer.transform.position;
 
             Vector3 newPos = transform.position + dirToPlayer;
 

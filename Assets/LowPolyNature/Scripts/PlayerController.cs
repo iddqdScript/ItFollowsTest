@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         mWCLevel.Min = 1;
         mWCLevel.Max = 99;
         startLevel = Level;
-        mWCLevel.SetValue(12);
+        mWCLevel.SetValue(1);
 
         mFoodBar = Hud.transform.Find("Bars_Panel/FoodBar").GetComponent<HealthBar>();
         mFoodBar.Min = 0;
@@ -193,7 +193,11 @@ public class PlayerController : MonoBehaviour
         if (Food < 0)
             Food = 0;
 
-        mFoodBar.SetValue(Food);
+        //added
+        if (Food > 100)
+        {
+            mFoodBar.SetValue(Food);
+        }
 
         if (IsDead)
         {
