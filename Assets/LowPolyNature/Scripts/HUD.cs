@@ -17,7 +17,7 @@ public class HUD : MonoBehaviour {
 
     private void InventoryScript_ItemAdded(object sender, InventoryEventArgs e)
     {
-        Transform inventoryPanel = transform.Find("InventoryPanel");
+        Transform inventoryPanel = transform.Find("InventPanelButtons/InventoryPanel");
         int index = -1;
         foreach (Transform slot in inventoryPanel)
         {
@@ -52,7 +52,7 @@ public class HUD : MonoBehaviour {
 
     private void Inventory_ItemRemoved(object sender, InventoryEventArgs e)
     {
-        Transform inventoryPanel = transform.Find("InventoryPanel");
+        Transform inventoryPanel = transform.Find("InventPanelButtons/InventoryPanel");
 
         int index = -1;
         foreach (Transform slot in inventoryPanel)

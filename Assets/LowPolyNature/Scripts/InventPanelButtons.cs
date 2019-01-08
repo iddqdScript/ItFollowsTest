@@ -26,6 +26,7 @@ public class InventPanelButtons : MonoBehaviour
     void Update ()
     {
 
+
     }
 
     void InventButtonOnClick()
