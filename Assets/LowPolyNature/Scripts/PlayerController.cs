@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject Hand;
 
+    public GameObject _selectedUnit;
+
     public HUD Hud;
 
     public float JumpSpeed = 7.0f;
@@ -309,6 +311,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Hud.RightClickMenu();
+        }
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            SelectTarget();
+        }
+
         // Get Input for axis
         float h = Input.GetAxis("Horizontal");//forward & backward
         float v = Input.GetAxis("Vertical");//Left & Right
@@ -338,7 +352,14 @@ public class PlayerController : MonoBehaviour
 
                                                                 }
 
+                                    //Testing Cast Spell
+                                    if (Input.GetKeyDown(KeyCode.L))
+                                    {
 
+            //Debug.Log("v was pressed");
+            _animator.Play("CastSpell");
+
+                                    }
 
         if (!IsDead && mIsControlEnabled)
         {
@@ -486,5 +507,26 @@ public class PlayerController : MonoBehaviour
             Hud.CloseMessagePanel();
             mInteractItem = null;
         }
+    }
+
+    void SelectTarget()
+    {
+
+        Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit _hit;
+
+        if(Physics.Raycast(_ray, out _hit, 10000))
+        {
+            if(_hit.transform.tag == "Enemy")
+            {
+                _selectedUnit = _hit.transform.gameObject;
+            }
+            else
+            {
+                _selectedUnit = null;
+            }
+        }
+
+
     }
 }

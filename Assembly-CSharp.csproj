@@ -70,12 +70,15 @@
      <Compile Include="Assets\LowPolyNature\Scripts\ItemDropHandler.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\PlayerController.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\PlayerFollow.cs" />
+     <Compile Include="Assets\LowPolyNature\Scripts\RightClickMenuScript.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Sheep.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Stalker.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\TreeLogs.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\TreeScript.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\WCLevel.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\WCTreeScript.cs" />
+     <Compile Include="Assets\RPGPackFree\Scripts\BowString.cs" />
+     <Compile Include="Assets\RPGPackFree\Scripts\OpenChest.cs" />
      <Compile Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Code\CameraController.cs" />
      <Compile Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Code\GUIControls.cs" />
      <Compile Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Code\RPGCharacterControllerFREE.cs" />
