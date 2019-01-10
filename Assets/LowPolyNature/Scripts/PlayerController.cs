@@ -143,10 +143,10 @@ public class PlayerController : MonoBehaviour
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             if (stateInfo.fullPathHash == Attack_1_Hash)
             {
-                //Debug.Log("Not attacking");
+                Debug.Log("ISAttacking Method");
                 return true;
             }
-            //Debug.Log("Not attacking");
+            Debug.Log("Not ISAttacking Method");
             return false;
            
         }
@@ -361,7 +361,18 @@ public class PlayerController : MonoBehaviour
 
                                     }
 
-        if (!IsDead && mIsControlEnabled)
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            bool t = true;
+            if(t)
+            {
+                StartCoroutine(AttackEnemy(3));
+            }
+
+            
+        }
+
+            if (!IsDead && mIsControlEnabled)
         {
             // Interact with the item
             if (mInteractItem != null && Input.GetKeyDown(KeyCode.F))
@@ -378,6 +389,7 @@ public class PlayerController : MonoBehaviour
                 {
                     // TODO: Logic which action to execute has to come from the particular item
                     _animator.SetTrigger("attack_1");
+                    
                 }
             }
 
@@ -529,4 +541,15 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    IEnumerator AttackEnemy(int _wait_time_seconds)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            _animator.Play("Attack_1");
+            yield return new WaitForSeconds(_wait_time_seconds);
+        }
+        
+    }
+
 }

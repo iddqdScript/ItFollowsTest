@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Axe : InventoryItemBase {
 
+    public int Damage = 10;
+
     public override void OnUse()
     {
         base.OnUse();
