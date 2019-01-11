@@ -15,15 +15,21 @@ public class ButtonListController : MonoBehaviour {
             GameObject _button = Instantiate(_buttonTemplate) as GameObject;
             _button.SetActive(true);
 
-            _button.GetComponent<ButtonListButton>().SetText("Button # " + i);
+            _button.GetComponent<ButtonListButton>().SetText("Button " + i);
 
             _button.transform.SetParent(_buttonTemplate.transform.parent, false);
+            //_button.GetComponent<ButtonListButton>().on;
+            //_button.transform.
+
+
         }
     }
 
     //The controller handles the click instead of the button, info is being passed back from the ButtonListButton Script
     public void ButtonClicked(string _myTextString)
     {
+
+        Debug.Log("ButtonClicked");
         Debug.Log(_myTextString);
     }
 

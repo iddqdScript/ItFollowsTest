@@ -14,6 +14,8 @@ public class ButtonListButton : MonoBehaviour {
 
     public void SetText(string _textString)
     {
+
+        _myTextString = _textString;
         _mytext.text = _textString; //find theh text attached to the button and set it to be the string passed into this method
     }
 

@@ -51,9 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ButtonListButton.cs" />
-     <Compile Include="Assets\ButtonListController.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Axe.cs" />
+     <Compile Include="Assets\LowPolyNature\Scripts\ButtonListButton.cs" />
+     <Compile Include="Assets\LowPolyNature\Scripts\ButtonListController.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Crate.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\DamageSource.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\EnemyScript.cs" />
