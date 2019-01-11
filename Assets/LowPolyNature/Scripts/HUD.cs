@@ -138,9 +138,10 @@ public class HUD : MonoBehaviour {
     public void RightClickMenu()
     {
         //Vector3 mouseposition
-        float mouseposX = Input.mousePosition.x;
-        float mouseposY = Input.mousePosition.y;
-        float mouseposZ = Input.mousePosition.z;
+        float _mouseposX = Input.mousePosition.x;
+        float _mouseposY = Input.mousePosition.y;
+        float _mouseposZ = Input.mousePosition.z;
+        
 
         var mp = Input.mousePosition;
 
@@ -149,6 +150,6 @@ public class HUD : MonoBehaviour {
         Transform g = gameObject.transform.Find("RightClickMenu");
         g.gameObject.SetActive(true);
         Debug.Log("Position = " + g.position);
-        g.position = Input.mousePosition;
+        g.position = new Vector3(_mouseposX+40, _mouseposY-70, 0);
     }
 }

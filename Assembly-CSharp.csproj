@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ButtonListButton.cs" />
+     <Compile Include="Assets\ButtonListController.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Axe.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Crate.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\DamageSource.cs" />
