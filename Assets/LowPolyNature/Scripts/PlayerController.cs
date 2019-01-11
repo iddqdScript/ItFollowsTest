@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject _selectedUnit;
 
+    public EnemyScript _enemyScript;
+
     public HUD Hud;
 
     public float JumpSpeed = 7.0f;
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
         startHealth = Health;
         mHealthBar.SetValue(Health);
 
-        mWCLevel = Hud.transform.Find("WoodcuttingSkill").GetComponent<WCLevel>();
+        mWCLevel = Hud.transform.Find("InventPanelButtons/SkillsPane/WoodcuttingSkill").GetComponent<WCLevel>();
         mWCLevel.Min = 1;
         mWCLevel.Max = 99;
         startLevel = Level;
@@ -312,16 +314,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Hud.RightClickMenu();
+                                                if (Input.GetMouseButtonDown(1))
+                                                {
+                                                    SelectTarget();
+                                                    Hud.RightClickMenu();
+                                                        if(_selectedUnit != null)
+                                                        {
+                                                            _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+                                                            Debug.Log("Health of this object is: " + _enemyScript.Health);
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.Log("No object selected");
+                                                        }
+                                                    
+
+
+
+
         }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            SelectTarget();
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    SelectTarget();
+        //}
 
         // Get Input for axis
         float h = Input.GetAxis("Horizontal");//forward & backward
@@ -356,21 +373,21 @@ public class PlayerController : MonoBehaviour
                                     if (Input.GetKeyDown(KeyCode.L))
                                     {
 
-            //Debug.Log("v was pressed");
-            _animator.Play("CastSpell");
+                                    //Debug.Log("v was pressed");
+                                    _animator.Play("CastSpell");
 
                                     }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            bool t = true;
-            if(t)
-            {
-                StartCoroutine(AttackEnemy(3));
-            }
+                                                        if (Input.GetKeyDown(KeyCode.H))
+                                                        {
+                                                            bool t = true;
+                                                            if(t)
+                                                            {
+                                                                StartCoroutine(AttackEnemy(3));
+                                                            }
 
             
-        }
+                                                        }
 
             if (!IsDead && mIsControlEnabled)
         {

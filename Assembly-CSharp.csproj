@@ -54,6 +54,7 @@
      <Compile Include="Assets\LowPolyNature\Scripts\Axe.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Crate.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\DamageSource.cs" />
+     <Compile Include="Assets\LowPolyNature\Scripts\EnemyScript.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\FirstAid.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\Food.cs" />
      <Compile Include="Assets\LowPolyNature\Scripts\GameManager.cs" />
