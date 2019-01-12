@@ -28,8 +28,6 @@ public class ButtonListController : MonoBehaviour {
     //The controller handles the click instead of the button, info is being passed back from the ButtonListButton Script
     public void ButtonClicked(string _myTextString)
     {
-
-        Debug.Log("ButtonClicked");
         Debug.Log(_myTextString);
     }
 

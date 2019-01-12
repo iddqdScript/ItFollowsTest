@@ -318,14 +318,20 @@ public class PlayerController : MonoBehaviour
                                                 {
                                                     SelectTarget();
                                                     Hud.RightClickMenu();
+
                                                         if(_selectedUnit != null)
                                                         {
-                                                            _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-                                                            Debug.Log("Health of this object is: " + _enemyScript.Health);
+                                                            //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+                                                            //Debug.Log("Health of this object is: " + _enemyScript.Health);
+                                                            
+                
+
+
                                                         }
                                                         else
                                                         {
                                                             Debug.Log("No object selected");
+                                                           
                                                         }
                                                     
 
@@ -538,23 +544,53 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SelectTarget()
+   void SelectTarget()
     {
 
+        string type = "";
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit _hit;
 
-        if(Physics.Raycast(_ray, out _hit, 10000))
+        if (Physics.Raycast(_ray, out _hit, 10000))
         {
-            if(_hit.transform.tag == "Enemy")
+            string _tag = _hit.transform.tag;
+
+            switch (_tag)
             {
-                _selectedUnit = _hit.transform.gameObject;
+                case "Enemy":
+                    Hud.SetSelectedText("Enemy");
+                    type = "Enemy";
+                    _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+                    Debug.Log("Health of this object is: " + _enemyScript.Health);
+                    break;
+                case "UsableObject":
+                    Hud.SetSelectedText("UsableObject");
+                    type = "UsableObject";
+                    break;
+                default:
+                    Hud.SetSelectedText("default");
+                    break;
             }
-            else
-            {
-                _selectedUnit = null;
-            }
+            
         }
+
+         //Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit _hit;
+
+        //if (Physics.Raycast(_ray, out _hit, 10000))
+        //{
+        //    if (_hit.transform.tag == "Enemy")
+        //    {
+        //        _selectedUnit = _hit.transform.gameObject;
+        //        Hud.SetSelectedText("Enemy");
+
+        //    }
+        //    else
+        //    {
+        //        _selectedUnit = null;
+        //        Hud.SetSelectedText("None Selected");
+        //    }
+        //}
 
 
     }

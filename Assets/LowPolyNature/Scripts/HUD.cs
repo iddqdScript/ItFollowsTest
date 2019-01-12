@@ -142,14 +142,23 @@ public class HUD : MonoBehaviour {
         float _mouseposY = Input.mousePosition.y;
         float _mouseposZ = Input.mousePosition.z;
         
-
         var mp = Input.mousePosition;
 
-
-        Debug.Log("Pressed right click.");
+       // Debug.Log("Pressed right click.");
         Transform g = gameObject.transform.Find("RightClickMenu");
         g.gameObject.SetActive(true);
-        Debug.Log("Position = " + g.position);
+       // Debug.Log("Position = " + g.position);
         g.position = new Vector3(_mouseposX+40, _mouseposY-70, 0);
     }
+
+
+
+    public void SetSelectedText(string _selectedText)
+    {
+        Text _tag = gameObject.transform.Find("SelectedPanel/Tag").GetComponent<Text>();
+        _tag.text = _selectedText;
+        
+       
+    }
+
 }
