@@ -324,8 +324,29 @@ public class PlayerController : MonoBehaviour
         if(!Hud._isMouseOverRightClickMenu())
         {
             Hud.CloseRightClickMenu();
-            Debug.Log("Closing Menu off hover");
+            //Debug.Log("Closing Menu off hover");
+            
         }
+
+        #region Testing List with C button
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            List<int> m = new List<int>();
+            m.Add(5);
+
+            Debug.Log("m contains" + m[0]);
+
+            m.Clear();
+            Debug.Log("Cleared");
+            if (m.Count == 0)
+            {
+                Debug.Log("m is zero");
+            }
+            
+
+        }
+        #endregion 
+
                                                 if (Input.GetMouseButtonDown(1))
                                                 {
                                                     SelectTarget();
@@ -352,7 +373,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        }
+                                                }
 
 
         //if (Input.GetMouseButtonDown(0))
@@ -586,17 +607,28 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log("added Examine");
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
-                    Debug.Log("In SelectTarget (PlayerController)");
+                    _btnlstctrl.ClearList();
+                    //Debug.Log("In SelectTarget (PlayerController)");
+                    //Debug.Log("1. List Has " + _btnlstctrl._Menuitemlist[0]);
                     break;
+
+
+
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
-                    
+                    //_btnlstctrl.ClearList();
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
                     _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl.GenerateList();
+                    _btnlstctrl.ClearList();
                     break;
                 default:
-                    Hud.SetSelectedText("default");
+                   // _btnlstctrl.ClearList();
+                    _btnlstctrl._Menuitemlist.Add("Walk Here");
+                    _btnlstctrl._Menuitemlist.Add("Cancel");
+                    _btnlstctrl.GenerateList();
+                    _btnlstctrl.ClearList();
                     break;
             }
             
