@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class HUD : MonoBehaviour {
 
     public Inventory Inventory;
 
     public GameObject MessagePanel;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -149,9 +151,16 @@ public class HUD : MonoBehaviour {
         g.gameObject.SetActive(true);
        // Debug.Log("Position = " + g.position);
         g.position = new Vector3(_mouseposX+40, _mouseposY-70, 0);
+
+        
+
     }
 
-
+    public void CloseRightClickMenu()
+    {
+        Transform g = gameObject.transform.Find("RightClickMenu");
+        g.gameObject.SetActive(false);
+    }
 
     public void SetSelectedText(string _selectedText)
     {
@@ -159,6 +168,12 @@ public class HUD : MonoBehaviour {
         _tag.text = _selectedText;
         
        
+    }
+
+
+    public bool _isMouseOverRightClickMenu()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
 }

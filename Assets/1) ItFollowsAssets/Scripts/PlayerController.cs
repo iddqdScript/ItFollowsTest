@@ -313,26 +313,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(!Hud._isMouseOverRightClickMenu())
+        {
+            Hud.CloseRightClickMenu();
+        }
                                                 if (Input.GetMouseButtonDown(1))
                                                 {
                                                     SelectTarget();
                                                     Hud.RightClickMenu();
+            
 
-                                                        if(_selectedUnit != null)
-                                                        {
-                                                            //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-                                                            //Debug.Log("Health of this object is: " + _enemyScript.Health);
+                                                        //if(_selectedUnit != null)
+                                                        //{
+                                                        //    //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+                                                        //    //Debug.Log("Health of this object is: " + _enemyScript.Health);
                                                             
                 
 
 
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.Log("No object selected");
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    Debug.Log("No object selected");
                                                            
-                                                        }
+                                                        //}
                                                     
 
 
