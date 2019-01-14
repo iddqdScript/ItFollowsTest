@@ -58,10 +58,13 @@ public class PlayerController : MonoBehaviour
 
     public HUD Hud;
 
+    public ButtonListController _btnlstctrl;
+
+
+
     public float JumpSpeed = 7.0f;
 
     #endregion
-
     // Use this for initialization
     void Start()
     {
@@ -71,6 +74,9 @@ public class PlayerController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         //_navMeshAgent.updatePosition = false;
         //_navMeshAgent.updateRotation = false;
+
+        
+        
 
         Inventory.ItemUsed += Inventory_ItemUsed;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
@@ -313,13 +319,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Close Right Click Menu if not hovering over it
         if(!Hud._isMouseOverRightClickMenu())
         {
             Hud.CloseRightClickMenu();
+            Debug.Log("Closing Menu off hover");
         }
                                                 if (Input.GetMouseButtonDown(1))
                                                 {
                                                     SelectTarget();
+
                                                     Hud.RightClickMenu();
             
 
@@ -550,8 +560,11 @@ public class PlayerController : MonoBehaviour
 
    void SelectTarget()
     {
+        int size;
+        //string[] MenuArray = new string[];
+        string type;
 
-        string type = "";
+        // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit _hit;
 
@@ -564,12 +577,23 @@ public class PlayerController : MonoBehaviour
                 case "Enemy":
                     Hud.SetSelectedText("Enemy");
                     type = "Enemy";
+                    
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-                    Debug.Log("Health of this object is: " + _enemyScript.Health);
+                   
+                    _btnlstctrl._Menuitemlist.Add("Attack");
+                    //Debug.Log("added Attack");
+                    _btnlstctrl._Menuitemlist.Add("Examine");
+                    //Debug.Log("added Examine");
+                    //Debug.Log("Health of this object is: " + _enemyScript.Health);
+                    _btnlstctrl.GenerateList();
+                    Debug.Log("In SelectTarget (PlayerController)");
                     break;
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
+                    
+                    _btnlstctrl._Menuitemlist.Add("Pick Up");
+                    _btnlstctrl._Menuitemlist.Add("Examine");
                     break;
                 default:
                     Hud.SetSelectedText("default");

@@ -147,12 +147,12 @@ public class HUD : MonoBehaviour {
         var mp = Input.mousePosition;
 
        // Debug.Log("Pressed right click.");
-        Transform g = gameObject.transform.Find("RightClickMenu");
-        g.gameObject.SetActive(true);
-       // Debug.Log("Position = " + g.position);
-        g.position = new Vector3(_mouseposX+40, _mouseposY-70, 0);
+        Transform _findRightClickMenu = gameObject.transform.Find("RightClickMenu");
+        _findRightClickMenu.gameObject.SetActive(true);
+        // Debug.Log("Position = " + g.position);
+        _findRightClickMenu.position = new Vector3(_mouseposX+20, _mouseposY-55, 0);
+        Debug.Log("In RightClickMenu (HUD)");
 
-        
 
     }
 
