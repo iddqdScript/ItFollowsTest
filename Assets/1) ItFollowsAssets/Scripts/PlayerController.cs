@@ -68,6 +68,11 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+        HealthBarFindandSetValue();
+        WcSkillFindandSetValue();
+        FoodBarFindandSetValue();
+
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
@@ -75,31 +80,40 @@ public class PlayerController : MonoBehaviour
         //_navMeshAgent.updatePosition = false;
         //_navMeshAgent.updateRotation = false;
 
-        
-        
+
+
+
 
         Inventory.ItemUsed += Inventory_ItemUsed;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
+        InvokeRepeating("IncreaseHunger", 0, HungerRate);
+    }
 
-        mHealthBar = Hud.transform.Find("Bars_Panel/HealthBar").GetComponent<HealthBar>();
-        mHealthBar.Min = 0;
-        mHealthBar.Max = Health;
-        startHealth = Health;
-        mHealthBar.SetValue(Health);
-
-        mWCLevel = Hud.transform.Find("InventPanelButtons/SkillsPane/WoodcuttingSkill").GetComponent<WCLevel>();
-        mWCLevel.Min = 1;
-        mWCLevel.Max = 99;
-        startLevel = Level;
-        mWCLevel.SetValue(1);
-
+    private void FoodBarFindandSetValue()
+    {
         mFoodBar = Hud.transform.Find("Bars_Panel/FoodBar").GetComponent<HealthBar>();
         mFoodBar.Min = 0;
         mFoodBar.Max = Food;
         startFood = Food;
         mFoodBar.SetValue(Food);
+    }
 
-        InvokeRepeating("IncreaseHunger", 0, HungerRate);
+    private void WcSkillFindandSetValue()
+    {
+        mWCLevel = Hud.transform.Find("InventPanelButtons/SkillsPane/WoodcuttingSkill").GetComponent<WCLevel>();
+        mWCLevel.Min = 1;
+        mWCLevel.Max = 99;
+        startLevel = Level;
+        mWCLevel.SetValue(1);
+    }
+
+    private void HealthBarFindandSetValue()
+    {
+        mHealthBar = Hud.transform.Find("Bars_Panel/HealthBar").GetComponent<HealthBar>();
+        mHealthBar.Min = 0;
+        mHealthBar.Max = Health;
+        startHealth = Health;
+        mHealthBar.SetValue(Health);
     }
 
     #region Inventory
@@ -168,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
         Inventory.RemoveItem(mCurrentItem);
 
-        // Throw animation
+
         // Throw animation
         Rigidbody rbItem = goItem.AddComponent<Rigidbody>();
         if (rbItem != null)
@@ -321,11 +335,11 @@ public class PlayerController : MonoBehaviour
     {
 
         //Close Right Click Menu if not hovering over it
-        if(!Hud._isMouseOverRightClickMenu())
+        if (!Hud._isMouseOverRightClickMenu())
         {
             Hud.CloseRightClickMenu();
             //Debug.Log("Closing Menu off hover");
-            
+
         }
 
         #region Testing List with C button
@@ -342,38 +356,38 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("m is zero");
             }
-            
+
 
         }
-        #endregion 
+        #endregion
 
-                                                if (Input.GetMouseButtonDown(1))
-                                                {
-                                                    SelectTarget();
+        if (Input.GetMouseButtonDown(1))
+        {
+            SelectTarget();
 
-                                                    Hud.RightClickMenu();
-            
-
-                                                        //if(_selectedUnit != null)
-                                                        //{
-                                                        //    //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-                                                        //    //Debug.Log("Health of this object is: " + _enemyScript.Health);
-                                                            
-                
+            Hud.RightClickMenu();
 
 
-                                                        //}
-                                                        //else
-                                                        //{
-                                                        //    Debug.Log("No object selected");
-                                                           
-                                                        //}
-                                                    
+            //if(_selectedUnit != null)
+            //{
+            //    //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+            //    //Debug.Log("Health of this object is: " + _enemyScript.Health);
 
 
 
 
-                                                }
+            //}
+            //else
+            //{
+            //    Debug.Log("No object selected");
+
+            //}
+
+
+
+
+
+        }
 
 
         //if (Input.GetMouseButtonDown(0))
@@ -381,56 +395,19 @@ public class PlayerController : MonoBehaviour
         //    SelectTarget();
         //}
 
-        // Get Input for axis
-        float h = Input.GetAxis("Horizontal");//forward & backward
-        float v = Input.GetAxis("Vertical");//Left & Right
+
 
         //Debug.Log("h = " + h);
         //Debug.Log("v = " + v);
         //Debug.Log("_movedirection = " + _moveDirection);
 
-                                                                 //Testing section
-                                                                if (Input.GetKeyDown(KeyCode.V))
-                                                                {
-                                                                    
-                                                                    //Debug.Log("v was pressed");
-                                                                    var TG = Instantiate(TESTGATHER,transform.position,transform.rotation);
-                                                                        Debug.Log("TESTGATHER = " + TESTGATHER);
-                                                                        Debug.Log("TG = " + TG);
-                                                                        Debug.Log("Char Local Pos = " + transform.localPosition);
+        TestingGatheringByPressingV();
+        TestingCastingByPressingL();
 
-                                                                        Inventory.AddItem(TG);
-                                                                        Object.Destroy(TG.transform.gameObject);
+        //start attackEnemyCoroutine when H is Pressed
+        TestAttacKEnendByPressingH();
 
-                                                                        Destroy(TG,1);
-                                                                        DestroyImmediate(TG, true);
-
-
-
-
-                                                                }
-
-                                    //Testing Cast Spell
-                                    if (Input.GetKeyDown(KeyCode.L))
-                                    {
-
-                                    //Debug.Log("v was pressed");
-                                    _animator.Play("CastSpell");
-
-                                    }
-
-                                                        if (Input.GetKeyDown(KeyCode.H))
-                                                        {
-                                                            bool t = true;
-                                                            if(t)
-                                                            {
-                                                                StartCoroutine(AttackEnemy(3));
-                                                            }
-
-            
-                                                        }
-
-            if (!IsDead && mIsControlEnabled)
+        if (!IsDead && mIsControlEnabled)
         {
             // Interact with the item
             if (mInteractItem != null && Input.GetKeyDown(KeyCode.F))
@@ -447,17 +424,22 @@ public class PlayerController : MonoBehaviour
                 {
                     // TODO: Logic which action to execute has to come from the particular item
                     _animator.SetTrigger("attack_1");
-                    
+
                 }
             }
 
-           
 
+            // Get Input for axis
+            float h = Input.GetAxis("Horizontal");//forward & backward
+            float v = Input.GetAxis("Vertical");//Left & Right
             // Calculate the forward vector
             Vector3 camForward_Dir = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 move = v * camForward_Dir + h * Camera.main.transform.right;
 
-            if (move.magnitude > 1f) move.Normalize();
+            if (move.magnitude > 1f)
+            {
+                move.Normalize();
+            }
 
             // Calculate the rotation for the player
             move = transform.InverseTransformDirection(move);
@@ -522,7 +504,48 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InteractWithItem() //Being called in the animation events
+    private void TestAttacKEnendByPressingH()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            bool t = true;
+            if (t)
+            {
+                StartCoroutine(AttackEnemyThenWaitForSeconds(3));
+            }
+        }
+    }
+
+    private void TestingCastingByPressingL()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+
+            //Debug.Log("v was pressed");
+            _animator.Play("CastSpell");
+        }
+    }
+
+    private void TestingGatheringByPressingV()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+
+            //Debug.Log("v was pressed");
+            var TG = Instantiate(TESTGATHER, transform.position, transform.rotation);
+            Debug.Log("TESTGATHER = " + TESTGATHER);
+            Debug.Log("TG = " + TG);
+            Debug.Log("Char Local Pos = " + transform.localPosition);
+
+            Inventory.AddItem(TG);
+            Object.Destroy(TG.transform.gameObject);
+
+            Destroy(TG, 1);
+            DestroyImmediate(TG, true);
+        }
+    }
+
+    public void InteractWithItemAnimEvent() //Being called in the animation events
     {
         if (mInteractItem != null)
         {
@@ -655,7 +678,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    IEnumerator AttackEnemy(int _wait_time_seconds)
+    IEnumerator AttackEnemyThenWaitForSeconds(int _wait_time_seconds)
     {
         for (int i = 0; i < 5; i++)
         {
