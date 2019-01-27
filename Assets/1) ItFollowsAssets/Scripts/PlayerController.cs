@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _characterController;
 
-    public InventoryItemBase TESTGATHER;
-
     private float Gravity = 20.0f;
 
     private Vector3 _moveDirection = Vector3.zero;
@@ -37,8 +35,8 @@ public class PlayerController : MonoBehaviour
     private int startFood;
 
 
+    public InventoryItemBase TESTGATHER;
 
- 
 
     #endregion
 
@@ -128,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void SetItemActive(InventoryItemBase item, bool active)
+    private void WeildItem(InventoryItemBase item, bool active)
     {
         Debug.Log("Picked up " + item);
         GameObject currentItem = (item as MonoBehaviour).gameObject;
@@ -143,13 +141,13 @@ public class PlayerController : MonoBehaviour
             // If the player carries an item, un-use it (remove from player's hand)
             if (mCurrentItem != null)
             {
-                SetItemActive(mCurrentItem, false);
+                WeildItem(mCurrentItem, false);
             }
 
             InventoryItemBase item = e.Item;
 
             // Use item (put it to hand of the player)
-            SetItemActive(item, true);
+            WeildItem(item, true);
 
             mCurrentItem = e.Item;
         }
@@ -174,6 +172,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //???
     public void DropCurrentItem()
     {
         _animator.SetTrigger("tr_drop");
@@ -403,9 +402,9 @@ public class PlayerController : MonoBehaviour
 
         TestingGatheringByPressingV();
         TestingCastingByPressingL();
-
         //start attackEnemyCoroutine when H is Pressed
-        TestAttacKEnendByPressingH();
+        TestAttackingEnemyByPressingH();
+
 
         if (!IsDead && mIsControlEnabled)
         {
@@ -430,11 +429,14 @@ public class PlayerController : MonoBehaviour
 
 
             // Get Input for axis
-            float h = Input.GetAxis("Horizontal");//forward & backward
-            float v = Input.GetAxis("Vertical");//Left & Right
+            float _horizontalAxis = Input.GetAxis("Horizontal");//forward & backward
+            float _verticalaxis = Input.GetAxis("Vertical");//Left & Right
             // Calculate the forward vector
-            Vector3 camForward_Dir = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-            Vector3 move = v * camForward_Dir + h * Camera.main.transform.right;
+            Vector3 _camerafacingdirection = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+            
+
+
+            Vector3 move = _verticalaxis * _camerafacingdirection + _horizontalAxis * Camera.main.transform.right;
 
             if (move.magnitude > 1f)
             {
@@ -452,7 +454,6 @@ public class PlayerController : MonoBehaviour
             if (_characterController.isGrounded)
             {
                 _moveDirection = transform.forward * move.magnitude;
-
                 _moveDirection *= Speed;
 
                 if (Input.GetButton("Jump"))
@@ -473,6 +474,7 @@ public class PlayerController : MonoBehaviour
 
             _characterController.Move(_moveDirection * Time.deltaTime);
 
+            #region Enable NavMesh Agent Code (commented out)
             //***************************************Enable Navmesh Agent***********************************
 
             //Click to move script
@@ -499,12 +501,12 @@ public class PlayerController : MonoBehaviour
             //{
             //    _animator.SetBool("run", true);
             //}
-
+            #endregion
 
         }
     }
 
-    private void TestAttacKEnendByPressingH()
+    private void TestAttackingEnemyByPressingH()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {

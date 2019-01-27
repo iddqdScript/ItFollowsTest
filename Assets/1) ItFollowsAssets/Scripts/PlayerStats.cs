@@ -8,9 +8,9 @@ public class PlayerStats
     public float Speed = 5.0f;
     public float JumpSpeed = 7.0f;
 
-    private int _health {get; set;}
-    private int _woodcuttingLevel { get; set; }
-    private int _hunger {get; set; }
-    private int _mentalHealth {get; set; }
+    private static int _health {get; set;}
+    private static int _woodcuttingLevel { get; set; }
+    private static int _hunger {get; set; }
+    private static int _mentalHealth {get; set; }
 
 }

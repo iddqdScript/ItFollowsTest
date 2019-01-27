@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\Editor\SnapToGround.cs" />
+     <Compile Include="Assets\Quantum Theory\Polyworld\Editor\QT_CombineMeshes.cs" />
+     <Compile Include="Assets\Quantum Theory\Polyworld\Editor\QT_ConvertMesh.cs" />
+     <Compile Include="Assets\Quantum Theory\Polyworld\Editor\QT_PolyWorldTerrainEditor.cs" />
+     <Compile Include="Assets\Quantum Theory\Polyworld\Editor\QT_SurfaceNoiseEditor.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Chris/Documents/GitHub/ItFollowsTest/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
