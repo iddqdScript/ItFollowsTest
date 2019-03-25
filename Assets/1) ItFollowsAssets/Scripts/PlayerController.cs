@@ -362,7 +362,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            SelectTarget();
+            SelectTargetUsingRaycast();
 
             Hud.RightClickMenu();
 
@@ -604,8 +604,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   void SelectTarget()
+   void SelectTargetUsingRaycast()
     {
+
+        //Sends a raycast out, if it hits an object with the tag (switch statement) it creates specalised buttons
+
         int size;
         //string[] MenuArray = new string[];
         string type;
@@ -628,7 +631,7 @@ public class PlayerController : MonoBehaviour
                    
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     //Debug.Log("added Attack");
-                    _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl._Menuitemlist.Add("Examine"); 
                     //Debug.Log("added Examine");
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
@@ -636,14 +639,20 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log("In SelectTarget (PlayerController)");
                     //Debug.Log("1. List Has " + _btnlstctrl._Menuitemlist[0]);
                     break;
-
-
-
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
                     //_btnlstctrl.ClearList();
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
+                    _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl.GenerateList();
+                    _btnlstctrl.ClearList();
+                    break;
+                case "InteractableObject":
+                    Hud.SetSelectedText("InteractableObject");
+                    type = "InteractableObject";
+                    //_btnlstctrl.ClearList();
+                    _btnlstctrl._Menuitemlist.Add("Interact");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();

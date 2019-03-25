@@ -156,6 +156,7 @@
      <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\RadialBlur.shader" />
      <None Include="Assets\Quantum Theory\Polyworld\Shaders\VertexColors\IBL\VertexColorsUnity5.shader" />
      <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
+     <None Include="Assets\SimpleSky\ReadMe.txt" />
      <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Readme.txt" />
      <None Include="Assets\Quantum Theory\Polyworld\Shaders\PolyWorldSurface_Gamma.shader" />
      <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ContrastComposite.shader" />

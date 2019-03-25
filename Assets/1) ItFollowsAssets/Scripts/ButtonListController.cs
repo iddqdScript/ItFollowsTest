@@ -99,6 +99,12 @@ public class ButtonListController : MonoBehaviour {
     public void ButtonClicked(string _myTextString)
     {
         Debug.Log(_myTextString);
+        if(_myTextString == "Examine")
+        {
+            Debug.Log("Examine Text Here");
+
+        }
+
     }
 
     public void ClearList()
