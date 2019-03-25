@@ -10,6 +10,18 @@ public class ButtonListButton : MonoBehaviour {
     [SerializeField]
     private ButtonListController _buttonListController;
 
+    public PlayerController _player;
+   // public static GameObject ActivePlayer;
+
+    void Start()
+    {
+        //    Button _buttonTemplate = gameObject.transform.Find("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/Button").GetComponent<Button>();
+        //    //_buttonTemplate = Resources.Load("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/ButtonListContent") as GameObject;
+       // ActivePlayer = GameObject.Find("Low Poly Warrior");
+        _player = GameObject.FindObjectOfType<PlayerController>();
+
+    }
+
     private string _myTextString;
 
     public void SetText(string _textString)

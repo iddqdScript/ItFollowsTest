@@ -33,6 +33,22 @@ public class LearningExamples
          */
     }
 
+    void AccessScripts()
+    {
+        /*
+         * I used this to access the playercontroller script on a class that i couldn't drag the object into
+         * 
+         * 
+         public PlayerController _player;
+         void Start()
+        {
+            _player = GameObject.FindObjectOfType<PlayerController>();
+        }
+
+
+         */
+    }
+
 
 
 

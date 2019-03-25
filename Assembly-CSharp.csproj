@@ -77,6 +77,7 @@
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerFollow.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerStats.cs" />
+     <Compile Include="Assets\1) ItFollowsAssets\Scripts\RightClickController.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\RightClickMenuScript.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\Sheep.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\Stalker.cs" />

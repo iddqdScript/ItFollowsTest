@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void WeildItem(InventoryItemBase item, bool active)
+    public void WeildItem(InventoryItemBase item, bool active)
     {
         Debug.Log("Picked up " + item);
         GameObject currentItem = (item as MonoBehaviour).gameObject;
@@ -303,7 +303,11 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
+    //testing access from buttonlistbutton
+    public void printa()
+    {
+        Debug.Log("worked");
+    }
 
     void FixedUpdate()
     {
@@ -547,6 +551,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
     public void InteractWithItemAnimEvent() //Being called in the animation events
     {
         if (mInteractItem != null)
@@ -636,29 +642,28 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
+                    
                     //Debug.Log("In SelectTarget (PlayerController)");
                     //Debug.Log("1. List Has " + _btnlstctrl._Menuitemlist[0]);
                     break;
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
-                    //_btnlstctrl.ClearList();
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
+
                     break;
                 case "InteractableObject":
                     Hud.SetSelectedText("InteractableObject");
                     type = "InteractableObject";
-                    //_btnlstctrl.ClearList();
                     _btnlstctrl._Menuitemlist.Add("Interact");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
                     break;
                 default:
-                   // _btnlstctrl.ClearList();
                     _btnlstctrl._Menuitemlist.Add("Walk Here");
                     _btnlstctrl._Menuitemlist.Add("Cancel");
                     _btnlstctrl.GenerateList();
