@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     #region Private Members
 
-    private Animator _animator;
-
+    private AnimationController _animControl;
+    //private Animator _animator;
     private Rigidbody _rigidbody;
 
     private NavMeshAgent _navMeshAgent;
@@ -72,20 +72,18 @@ public class PlayerController : MonoBehaviour
         FoodBarFindandSetValue();
 
         _rigidbody = GetComponent<Rigidbody>();
-        _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animControl = GameObject.FindObjectOfType<AnimationController>();
         //_navMeshAgent.updatePosition = false;
         //_navMeshAgent.updateRotation = false;
-
-
-
-
 
         Inventory.ItemUsed += Inventory_ItemUsed;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
     }
+
+
 
     private void FoodBarFindandSetValue()
     {
@@ -160,8 +158,9 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.fullPathHash == Attack_1_Hash)
+
+            
+            if (_animControl.GetStateFullHashPath() == Attack_1_Hash)
             {
                 Debug.Log("ISAttacking Method");
                 return true;
@@ -175,7 +174,8 @@ public class PlayerController : MonoBehaviour
     //???
     public void DropCurrentItem()
     {
-        _animator.SetTrigger("tr_drop");
+        _animControl.SetTrigger("tr_drop");
+        //_animator.SetTrigger("tr_drop");
 
         GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
 
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         if (IsDead)
         {
             CancelInvoke();
-            _animator.SetTrigger("death");
+            _animControl.SetTrigger("death");
         }
     }
 
@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsDead)
         {
-            _animator.SetTrigger("death");
+            _animControl.SetTrigger("death");
         }
 
     }
@@ -323,29 +323,16 @@ public class PlayerController : MonoBehaviour
 
     private bool mIsControlEnabled = true;
 
-    public void EnableControl()
-    {
-        mIsControlEnabled = true;
-    }
-
-    public void DisableControl()
-    {
-        mIsControlEnabled = false;
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
-
-        //Close Right Click Menu if not hovering over it
-        if (!Hud._isMouseOverRightClickMenu())
-        {
-            Hud.CloseRightClickMenu();
-            //Debug.Log("Closing Menu off hover");
-
-        }
-
-        #region Testing List with C button
+        #region TestingReigon
+        TestingGatheringByPressingV();
+        TestingCastingByPressingL();
+        //start attackEnemyCoroutine when H is Pressed
+        TestAttackingEnemyByPressingH();
         if (Input.GetKeyDown(KeyCode.C))
         {
             List<int> m = new List<int>();
@@ -362,52 +349,23 @@ public class PlayerController : MonoBehaviour
 
 
         }
-        #endregion
+        #endregion 
+
+        //Close Right Click Menu if not hovering over it
+        if (!Hud._isMouseOverRightClickMenu())
+        {
+            Hud.CloseRightClickMenu();
+            //Debug.Log("Closing Menu off hover");
+        }
+
 
         if (Input.GetMouseButtonDown(1))
         {
             SelectTargetUsingRaycast();
 
             Hud.RightClickMenu();
-
-
-            //if(_selectedUnit != null)
-            //{
-            //    //_enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-            //    //Debug.Log("Health of this object is: " + _enemyScript.Health);
-
-
-
-
-            //}
-            //else
-            //{
-            //    Debug.Log("No object selected");
-
-            //}
-
-
-
-
-
         }
 
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    SelectTarget();
-        //}
-
-
-
-        //Debug.Log("h = " + h);
-        //Debug.Log("v = " + v);
-        //Debug.Log("_movedirection = " + _moveDirection);
-
-        TestingGatheringByPressingV();
-        TestingCastingByPressingL();
-        //start attackEnemyCoroutine when H is Pressed
-        TestAttackingEnemyByPressingH();
 
 
         if (!IsDead && mIsControlEnabled)
@@ -416,7 +374,7 @@ public class PlayerController : MonoBehaviour
             if (mInteractItem != null && Input.GetKeyDown(KeyCode.F))
             {
                 // Interact animation
-                mInteractItem.OnInteractAnimation(_animator);
+                mInteractItem.OnInteractAnimation(_animControl._animator);
             }
 
             // Execute action with item
@@ -426,7 +384,7 @@ public class PlayerController : MonoBehaviour
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     // TODO: Logic which action to execute has to come from the particular item
-                    _animator.SetTrigger("attack_1");
+                    _animControl.SetTrigger("attack_1");
 
                 }
             }
@@ -462,14 +420,15 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetButton("Jump"))
                 {
-                    _animator.SetBool("is_in_air", true);
+                    _animControl.SetState("is_in_air", true);
+                    //_animator.SetBool("is_in_air", true);
                     _moveDirection.y = JumpSpeed;
 
                 }
                 else
                 {
-                    _animator.SetBool("is_in_air", false);
-                    _animator.SetBool("run", move.magnitude > 0);
+                    _animControl.SetState("is_in_air", false);
+                    _animControl.SetState("run", move.magnitude > 0);
 
                 }
             }
@@ -510,6 +469,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+
+    public void EnableControl()
+    {
+        mIsControlEnabled = true;
+    }
+
+    public void DisableControl()
+    {
+        mIsControlEnabled = false;
+    }
+
+
     private void TestAttackingEnemyByPressingH()
     {
         if (Input.GetKeyDown(KeyCode.H))
@@ -526,9 +499,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-
-            //Debug.Log("v was pressed");
-            _animator.Play("CastSpell");
+            _animControl.PlayAnim("CastSpell");
         }
     }
 
@@ -592,9 +563,7 @@ public class PlayerController : MonoBehaviour
         {
             if (item.CanInteract(other))
             {
-
                 mInteractItem = item;
-
                 Hud.OpenMessagePanel(mInteractItem);
             }
         }
@@ -634,7 +603,6 @@ public class PlayerController : MonoBehaviour
                     type = "Enemy";
                     
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
-                   
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     //Debug.Log("added Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine"); 
@@ -698,7 +666,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            _animator.Play("Attack_1");
+            _animControl.PlayAnim("Attack_1");
             yield return new WaitForSeconds(_wait_time_seconds);
         }
         

@@ -27,9 +27,29 @@ public class ButtonListController : MonoBehaviour {
     
     public void GenerateList()
     {
-
-
         //Destroying all the buttons in the list before making new ones
+        DestroyAllButtonsInList();
+        CreateButtons();
+    }
+
+    //The controller handles the click instead of the button, info is being passed back from the ButtonListButton Script
+    public void ButtonClicked(string _myTextString)
+    {
+        Debug.Log(_myTextString);
+        if (_myTextString == "Pick Up")
+        {
+            Debug.Log("Picking Up");
+        }
+    }
+
+        public void ClearList()
+    {
+        _menuitemlist.Clear();
+    }
+
+    public void DestroyAllButtonsInList()
+    {
+        
         if (GetComponentInChildren<ButtonListButton>() != null)
         {
             ButtonListButton[] BLB = GetComponentsInChildren<ButtonListButton>();
@@ -39,46 +59,18 @@ public class ButtonListController : MonoBehaviour {
             }
             Debug.Log("Buttons Deleted");
         }
+    }
 
-
-        Debug.Log("In ButtonListController");
-
-            for (int i = 0; i < _menuitemlist.Count; i++)
-            {
-                GameObject _button = Instantiate(_buttonTemplate) as GameObject;
-                _button.SetActive(true);
-
-                _button.GetComponent<ButtonListButton>().SetText(_menuitemlist[i]);
-
-                _button.transform.SetParent(_buttonTemplate.transform.parent, false);
-                 Debug.Log("Button Added");
+    public void CreateButtons()
+    {
+        for (int i = 0; i < _menuitemlist.Count; i++)
+        {
+            GameObject _button = Instantiate(_buttonTemplate) as GameObject;
+            _button.SetActive(true);
+            _button.GetComponent<ButtonListButton>().SetText(_menuitemlist[i]);
+            _button.transform.SetParent(_buttonTemplate.transform.parent, false);
         }
     }
-
-    //The controller handles the click instead of the button, info is being passed back from the ButtonListButton Script
-    public void ButtonClicked(string _myTextString)
-    {
-        Debug.Log(_myTextString);
-
-
-
-        //if(_myTextString == "Pick Up")
-        //{
-        //    Debug.Log("Picking Up");
-            
-
-        //}
-
-    }
-
-    public void ClearList()
-    {
-        
-
-        _menuitemlist.Clear();
-    }
-
-
 
 }
 

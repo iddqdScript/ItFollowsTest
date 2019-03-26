@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\1) ItFollowsAssets\Scripts\AnimationController.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\Axe.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\ButtonListButton.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\ButtonListController.cs" />
