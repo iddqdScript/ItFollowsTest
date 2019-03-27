@@ -9,9 +9,9 @@ public class Inventory : MonoBehaviour
 
     private IList<InventorySlot> mSlots = new List<InventorySlot>();
 
-    public event EventHandler<InventoryEventArgs> ItemAdded;
-    public event EventHandler<InventoryEventArgs> ItemRemoved;
-    public event EventHandler<InventoryEventArgs> ItemUsed;
+    public event EventHandler<InventoryItemEventArgs> ItemAdded;
+    public event EventHandler<InventoryItemEventArgs> ItemRemoved;
+    public event EventHandler<InventoryItemEventArgs> ItemUsed;
 
     public Inventory()
     {
@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour
 
             if (ItemAdded != null)
             {
-                ItemAdded(this, new InventoryEventArgs(item));
+                ItemAdded(this, new InventoryItemEventArgs(item));
             }
 
         }
@@ -64,7 +64,7 @@ public class Inventory : MonoBehaviour
     {
         if (ItemUsed != null)
         {
-            ItemUsed(this, new InventoryEventArgs(item));
+            ItemUsed(this, new InventoryItemEventArgs(item));
         }
 
         item.OnUse();
@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
             {
                 if (ItemRemoved != null)
                 {
-                    ItemRemoved(this, new InventoryEventArgs(item));
+                    ItemRemoved(this, new InventoryItemEventArgs(item));
                 }
                 break;
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _moveDirection = Vector3.zero;
 
-    private InventoryItemBase mCurrentItem = null;
+    private InventoryItemBase _InventoryItemBase = null;
 
     private HealthBar mHealthBar;
 
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject _selectedUnit;
 
-    public EnemyScript _enemyScript;
+    
 
     public HUD Hud;
 
@@ -78,8 +79,9 @@ public class PlayerController : MonoBehaviour
         //_navMeshAgent.updatePosition = false;
         //_navMeshAgent.updateRotation = false;
 
-        Inventory.ItemUsed += Inventory_ItemUsed;
-        Inventory.ItemRemoved += Inventory_ItemRemoved;
+        
+        Inventory.ItemUsed += Inventory_ItemUsed; //Subscribing to the event. When ItemUsed is called it invokes the Inventory_ItemUsed method.
+        Inventory.ItemRemoved += Inventory_ItemRemoved; //Subscribing to the event.
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
     }
 
@@ -114,15 +116,7 @@ public class PlayerController : MonoBehaviour
 
     #region Inventory
 
-    private void Inventory_ItemRemoved(object sender, InventoryEventArgs e)
-    {
-        InventoryItemBase item = e.Item;
 
-        GameObject goItem = (item as MonoBehaviour).gameObject;
-        goItem.SetActive(true);
-        goItem.transform.parent = null;
-
-    }
 
     public void WeildItem(InventoryItemBase item, bool active)
     {
@@ -132,25 +126,38 @@ public class PlayerController : MonoBehaviour
         currentItem.transform.parent = active ? Hand.transform : null;
     }
 
-    private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
-    {
-        if (e.Item.ItemType != EItemType.Consumable)
-        {
-            // If the player carries an item, un-use it (remove from player's hand)
-            if (mCurrentItem != null)
-            {
-                WeildItem(mCurrentItem, false);
-            }
+                                //Using the events syetem
+                            private void Inventory_ItemRemoved(object sender, InventoryItemEventArgs e)
+                            {
+                                InventoryItemBase item = e.Item;
+                                
+                                GameObject goItem = (item as MonoBehaviour).gameObject;
+                                goItem.SetActive(true);
+                                goItem.transform.parent = null;
 
-            InventoryItemBase item = e.Item;
+                            }
 
-            // Use item (put it to hand of the player)
-            WeildItem(item, true);
 
-            mCurrentItem = e.Item;
-        }
+                             private void Inventory_ItemUsed(object sender, InventoryItemEventArgs e)
+                             {
+                                if (e.Item.ItemType != EItemType.Consumable)//If the item is not consumable
+                                {
+                                    // If the player carries an item, un-use it (remove from player's hand)
+                                    if (_InventoryItemBase != null)
+                                    {
+                                        WeildItem(_InventoryItemBase, false);
+                                    }
 
-    }
+                                    InventoryItemBase item = e.Item;
+
+                                    // Use item (put it to hand of the player)
+                                    WeildItem(item, true);
+
+                                    _InventoryItemBase = e.Item;
+                                    
+                                }
+
+                             }
 
     private int Attack_1_Hash = Animator.StringToHash("Base Layer.Attack_1");
 
@@ -177,9 +184,9 @@ public class PlayerController : MonoBehaviour
         _animControl.SetTrigger("tr_drop");
         //_animator.SetTrigger("tr_drop");
 
-        GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
+        GameObject goItem = (_InventoryItemBase as MonoBehaviour).gameObject;
 
-        Inventory.RemoveItem(mCurrentItem);
+        Inventory.RemoveItem(_InventoryItemBase);
 
 
         // Throw animation
@@ -197,9 +204,9 @@ public class PlayerController : MonoBehaviour
     {
 
         // Remove Rigidbody
-        Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
+        Destroy((_InventoryItemBase as MonoBehaviour).GetComponent<Rigidbody>());
 
-        mCurrentItem = null;
+        _InventoryItemBase = null;
     }
 
     #endregion
@@ -256,10 +263,9 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (mCurrentItem == null)
+            if (_InventoryItemBase == null)
                 return false;
-            //Debug.Log("IsArmed = " + mCurrentItem);
-            return mCurrentItem.ItemType == EItemType.Weapon;
+            return _InventoryItemBase.ItemType == EItemType.Weapon;
         }
     }
 
@@ -311,19 +317,18 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (!IsDead)
-        //{
-        //    // Drop item
-        //    if (mCurrentItem != null && Input.GetKeyDown(KeyCode.R))
-        //    {
-        //        DropCurrentItem();
-        //    }
-        //}
+        if (!IsDead)
+        {
+            // Drop item
+            if (_InventoryItemBase != null && Input.GetKeyDown(KeyCode.R))
+            {
+                DropCurrentItem();
+            }
+        }
     }
 
     private bool mIsControlEnabled = true;
 
-    
 
     // Update is called once per frame
     void Update()
@@ -378,7 +383,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Execute action with item
-            if (mCurrentItem != null && Input.GetMouseButtonDown(0))
+            if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
             {
                 // Dont execute click if mouse pointer is over uGUI element
                 if (!EventSystem.current.IsPointerOverGameObject())
@@ -495,7 +500,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void TestingCastingByPressingL()
+    public void TestingCastingByPressingL()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -587,7 +592,9 @@ public class PlayerController : MonoBehaviour
         int size;
         //string[] MenuArray = new string[];
         string type;
-
+        EnemyScript _enemyScript;
+        //InteractableItemBase i = GetComponent<InteractableItemBase>(); ;
+        
         // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit _hit;
@@ -595,7 +602,6 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(_ray, out _hit, 10000))
         {
             string _tag = _hit.transform.tag;
-
             switch (_tag)
             {
                 case "Enemy":
@@ -604,20 +610,16 @@ public class PlayerController : MonoBehaviour
                     
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
-                    //Debug.Log("added Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine"); 
                     //Debug.Log("added Examine");
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
-                    _btnlstctrl.ClearList();
-                    
-                    //Debug.Log("In SelectTarget (PlayerController)");
-                    //Debug.Log("1. List Has " + _btnlstctrl._Menuitemlist[0]);
+                    _btnlstctrl.ClearList();              
                     break;
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
-                    _btnlstctrl._Menuitemlist.Add("Pick Up");
+                    _btnlstctrl._Menuitemlist.Add("Pick Up ");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
@@ -626,7 +628,9 @@ public class PlayerController : MonoBehaviour
                 case "InteractableObject":
                     Hud.SetSelectedText("InteractableObject");
                     type = "InteractableObject";
-                    _btnlstctrl._Menuitemlist.Add("Interact");
+                    //_genericItemScript = GameObject.FindObjectOfType<GenericItem>();
+                   
+                    //_btnlstctrl._Menuitemlist.Add("Interact " + _genericItemScript.name);
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
@@ -638,29 +642,21 @@ public class PlayerController : MonoBehaviour
                     _btnlstctrl.ClearList();
                     break;
             }
+
             
+
+            //switch ()
+            //{
+            //    case :
+
+            //        break;
+            //}
+
+
         }
-
-         //Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit _hit;
-
-        //if (Physics.Raycast(_ray, out _hit, 10000))
-        //{
-        //    if (_hit.transform.tag == "Enemy")
-        //    {
-        //        _selectedUnit = _hit.transform.gameObject;
-        //        Hud.SetSelectedText("Enemy");
-
-        //    }
-        //    else
-        //    {
-        //        _selectedUnit = null;
-        //        Hud.SetSelectedText("None Selected");
-        //    }
-        //}
-
-
     }
+
+
 
     IEnumerator AttackEnemyThenWaitForSeconds(int _wait_time_seconds)
     {

@@ -19,13 +19,27 @@ public enum EItemType
 
 public class InteractableItemBase : MonoBehaviour
 {
-    public string Name;
-
+    public string Name { get; protected set; }
+    public virtual string _tag { get; protected set; }
     public Sprite Image;
-
     public string InteractText = "Press F to pickup the item";
-
     public EItemType ItemType;
+    public Vector3 PickPosition; //The chosen position of the item on the character (set in the item inspector)
+    public Vector3 PickRotation; //The chosen rotation of the item on the character (set in the item inspector)
+    public Vector3 DropRotation;
+    public bool UseItemAfterPickup = false;
+
+
+    void Start()
+    {
+        //gameObject.tag = "Player";
+    }
+
+    public virtual void ObjectInteract()
+    {
+
+    }
+
 
     public virtual void OnInteractAnimation(Animator animator)
     {
@@ -74,13 +88,7 @@ public class InventoryItemBase : InteractableItemBase
         
     }
 
-    public Vector3 PickPosition;
 
-    public Vector3 PickRotation;
-
-    public Vector3 DropRotation;
-
-    public bool UseItemAfterPickup = false;
 
 
 }

@@ -67,8 +67,8 @@
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\HUD.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\Inventory.cs" />
-     <Compile Include="Assets\1) ItFollowsAssets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\InventoryItemBase.cs" />
+     <Compile Include="Assets\1) ItFollowsAssets\Scripts\InventoryItemEventArgs.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\InventorySlot.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\InventPanelButtons.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\ItemClickHandler.cs" />
@@ -86,7 +86,9 @@
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\TreeScript.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\WCLevel.cs" />
      <Compile Include="Assets\1) ItFollowsAssets\Scripts\WCTreeScript.cs" />
+     <Compile Include="Assets\Chest.cs" />
      <Compile Include="Assets\ExportTerrain.cs" />
+     <Compile Include="Assets\GenericItem.cs" />
      <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_InteractContainer.cs" />
      <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_LightFlicker.cs" />
      <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_PolyWorldTerrain.cs" />
