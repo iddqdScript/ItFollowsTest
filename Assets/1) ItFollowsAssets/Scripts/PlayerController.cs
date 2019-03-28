@@ -536,13 +536,12 @@ public class PlayerController : MonoBehaviour
         if (mInteractItem != null)
         {
             mInteractItem.OnInteract();
-            Debug.Log(mInteractItem + " Selected interactanimevent");
+
 
             if (mInteractItem is InventoryItemBase) //If the interactable item is an InventoryItemBase (like axe)
             {
                 InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;// inventoryItem becomes the interacted with item if it is an Instance of InventoryItemBase? (as is like is keyword + cast) 
                 Inventory.AddItem(inventoryItem);
-                
                 inventoryItem.OnPickup();
 
                 if (inventoryItem.UseItemAfterPickup)
@@ -550,10 +549,6 @@ public class PlayerController : MonoBehaviour
                     Inventory.UseItem(inventoryItem);
                 }
             }
-        }
-        else
-        {
-            Debug.Log("mInteractItem is null");
         }
 
         Hud.CloseMessagePanel();
@@ -599,7 +594,6 @@ public class PlayerController : MonoBehaviour
         string type;
         EnemyScript _enemyScript;
         //InteractableItemBase i = GetComponent<InteractableItemBase>(); ;
-        InteractableItemBase item;
         // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit _hit;
@@ -624,15 +618,15 @@ public class PlayerController : MonoBehaviour
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
+                    _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
-                    _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();
+                    
                     //_btnlstctrl.ButtonClicked("Pick Up");
                     //_rightClickItemToPickUp = _hit.collider.GetComponent<InteractableItemBase>();
                     //Debug.Log(_btnlstctrl._item.name + " Selected");
-                    item = _hit.collider.GetComponent<InteractableItemBase>();
                     //RightClickInteractWithAnItem(item);
 
 
