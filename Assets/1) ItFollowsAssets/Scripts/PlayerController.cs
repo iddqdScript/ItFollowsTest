@@ -358,6 +358,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion 
 
+
         //Close Right Click Menu if not hovering over it
         if (!Hud._isMouseOverRightClickMenu())
         {

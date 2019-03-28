@@ -40,7 +40,7 @@ public class InventorySlot
     {
         if (IsEmpty)
             return false;
-
+        Debug.Log("Picked up name " + item.Name);
         InventoryItemBase first = mItemStack.Peek();
 
         if (first.Name == item.Name)

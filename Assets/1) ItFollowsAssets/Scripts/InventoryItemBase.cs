@@ -19,7 +19,7 @@ public enum EItemType
 
 public class InteractableItemBase : MonoBehaviour
 {
-    public string Name { get; protected set; }
+    public string Name;
     public virtual string _tag { get; protected set; }
     public Sprite Image;
     public string InteractText = "Press F to pickup the item";
