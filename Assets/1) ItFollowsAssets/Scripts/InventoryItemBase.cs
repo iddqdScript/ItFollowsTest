@@ -32,7 +32,13 @@ public class InteractableItemBase : MonoBehaviour
 
     void Start()
     {
-        //gameObject.tag = "Player";
+        
+        SetTag();
+    }
+
+    public virtual void SetTag()
+    {
+       //gameObject.tag = "Shadow";
     }
 
     public virtual void ObjectInteract()

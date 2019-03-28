@@ -9,6 +9,8 @@ public class ButtonListController : MonoBehaviour {
     private GameObject _buttonTemplate;
     private static List<string> _menuitemlist = new List<string>();
     private GameObject _ActivePlayer;
+    private PlayerController p;
+    public InteractableItemBase _item = null;
 
    
 
@@ -23,6 +25,7 @@ public class ButtonListController : MonoBehaviour {
     void Start()
     {
         _ActivePlayer = GameObject.Find("Low Poly Warrior");
+        p = GameObject.FindObjectOfType<PlayerController>();
         //    Button _buttonTemplate = gameObject.transform.Find("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/Button").GetComponent<Button>();
         //    //_buttonTemplate = Resources.Load("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/ButtonListContent") as GameObject;
     }
@@ -40,7 +43,9 @@ public class ButtonListController : MonoBehaviour {
        // Debug.Log(_myTextString);
         if (_myTextString == "Pick Up")
         {
-            Debug.Log("Picking Up ");
+            p.RightClickInteractWithAnItem(_item);
+            //print(_item);
+            
         }
     }
 

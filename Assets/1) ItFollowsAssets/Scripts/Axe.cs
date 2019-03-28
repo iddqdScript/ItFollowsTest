@@ -6,9 +6,12 @@ public class Axe : InventoryItemBase {
 
     public int Damage = 10;
 
-   void start()
+    public override void SetTag()
     {
-       // gameObject.tag = "Player";
+        if (gameObject.tag != "UsableObject" && gameObject.tag != null)
+        {
+            gameObject.tag = "UsableObject";
+        }
     }
 
     public override void OnUse()

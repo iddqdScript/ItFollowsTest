@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject _selectedUnit;
 
+    public InteractableItemBase _rightClickItemToPickUp;
+
     
 
     public HUD Hud;
@@ -120,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     public void WeildItem(InventoryItemBase item, bool active)
     {
-        Debug.Log("Picked up " + item);
+
         GameObject currentItem = (item as MonoBehaviour).gameObject;
         currentItem.SetActive(active);
         currentItem.transform.parent = active ? Hand.transform : null;
@@ -534,7 +536,8 @@ public class PlayerController : MonoBehaviour
         if (mInteractItem != null)
         {
             mInteractItem.OnInteract();
-            
+            Debug.Log(mInteractItem + " Selected interactanimevent");
+
             if (mInteractItem is InventoryItemBase) //If the interactable item is an InventoryItemBase (like axe)
             {
                 InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;// inventoryItem becomes the interacted with item if it is an Instance of InventoryItemBase? (as is like is keyword + cast) 
@@ -560,6 +563,8 @@ public class PlayerController : MonoBehaviour
 
     private InteractableItemBase mInteractItem = null;
 
+
+    //Opens the message Panel "Press F" if Characters walks into the collider of an item
     private void OnTriggerEnter(Collider other)
     {
         InteractableItemBase item = other.GetComponent<InteractableItemBase>();
@@ -573,7 +578,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    //Opens the message Panel "Press F" if Characters walks out of the collider of an item
     private void OnTriggerExit(Collider other)
     {
         InteractableItemBase item = other.GetComponent<InteractableItemBase>();
@@ -594,7 +599,7 @@ public class PlayerController : MonoBehaviour
         string type;
         EnemyScript _enemyScript;
         //InteractableItemBase i = GetComponent<InteractableItemBase>(); ;
-        
+        InteractableItemBase item;
         // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit _hit;
@@ -619,17 +624,23 @@ public class PlayerController : MonoBehaviour
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
-                    _btnlstctrl._Menuitemlist.Add("Pick Up ");
+                    _btnlstctrl._Menuitemlist.Add("Pick Up");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
+                    _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();
+                    //_btnlstctrl.ButtonClicked("Pick Up");
+                    //_rightClickItemToPickUp = _hit.collider.GetComponent<InteractableItemBase>();
+                    //Debug.Log(_btnlstctrl._item.name + " Selected");
+                    item = _hit.collider.GetComponent<InteractableItemBase>();
+                    //RightClickInteractWithAnItem(item);
+
 
                     break;
                 case "InteractableObject":
                     Hud.SetSelectedText("InteractableObject");
                     type = "InteractableObject";
                     //_genericItemScript = GameObject.FindObjectOfType<GenericItem>();
-                   
                     //_btnlstctrl._Menuitemlist.Add("Interact " + _genericItemScript.name);
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
@@ -667,5 +678,49 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+    private void OnRightClickTriggerClicked(Collider other)
+    {
+        InteractableItemBase item = other.GetComponent<InteractableItemBase>();
+
+        if (item != null)
+        {
+            if (item.CanInteract(other))
+            {
+                mInteractItem = item;
+                Hud.OpenMessagePanel(mInteractItem);
+            }
+        }
+    }
+
+    public void RightClickInteractWithAnItem(InteractableItemBase mInteractItem) //Exact same method as InteractWithItemAnimEvent() which is Being called in the animation events, this is for rightclickmenu
+    {
+        if (mInteractItem != null)
+        {
+            mInteractItem.OnInteract();
+
+            if (mInteractItem is InventoryItemBase) //If the interactable item is an InventoryItemBase (like axe)
+            {
+                InventoryItemBase inventoryItem = mInteractItem as InventoryItemBase;// inventoryItem becomes the interacted with item if it is an Instance of InventoryItemBase? (as is like is keyword + cast) 
+                Inventory.AddItem(inventoryItem);
+
+                inventoryItem.OnPickup();
+
+                if (inventoryItem.UseItemAfterPickup)
+                {
+                    Inventory.UseItem(inventoryItem);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("mInteractItem is null");
+        }
+
+        Hud.CloseMessagePanel();
+
+        mInteractItem = null;
+    }
+
 
 }
