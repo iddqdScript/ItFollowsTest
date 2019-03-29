@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             _navigationController.DisableNavMesh(); //this is being called repeatedly, cache or something
-            _navigationController.EnableManualMove();
+            _navigationController.EnableWASDMove();
         }
 
 

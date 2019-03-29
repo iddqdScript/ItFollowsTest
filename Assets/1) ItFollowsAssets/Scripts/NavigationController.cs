@@ -75,7 +75,7 @@ public class NavigationController : MonoBehaviour
         }
     }
 
-    public void EnableManualMove()
+    public void EnableWASDMove()
     {
         // Get Input for axis
         float _horizontalAxis = Input.GetAxis("Horizontal");//forward & backward
@@ -99,6 +99,10 @@ public class NavigationController : MonoBehaviour
         float turnAmount = Mathf.Atan2(move.x, move.z);
 
         transform.Rotate(0, turnAmount * RotationSpeed * Time.deltaTime, 0);
+
+
+        //if holding the torch different animation
+
 
         if (_characterController.isGrounded)
         {

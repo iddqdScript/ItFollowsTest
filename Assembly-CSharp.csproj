@@ -93,6 +93,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\RightClickMenuScript.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Sheep.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Stalker.cs" />
+    <Compile Include="Assets\1) ItFollowsAssets\Scripts\Torch.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\TreeLogs.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\TreeScript.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\WCLevel.cs" />
