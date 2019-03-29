@@ -84,6 +84,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\ItemDragHandler.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\ItemDropHandler.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\LearningExamples.cs" />
+    <Compile Include="Assets\1) ItFollowsAssets\Scripts\NavigationController.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerFollow.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\PlayerStats.cs" />

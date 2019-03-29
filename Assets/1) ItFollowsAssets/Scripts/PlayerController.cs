@@ -8,68 +8,35 @@ using UnityEngine.EventSystems;
 public class PlayerController : MonoBehaviour
 {
     #region Private Members
-
     private AnimationController _animControl;
-    //private Animator _animator;
     private Rigidbody _rigidbody;
-
+    private NavigationController _navigationController;
     private NavMeshAgent _navMeshAgent;
-
     private CharacterController _characterController;
-
-    private float Gravity = 20.0f;
-
-    private Vector3 _moveDirection = Vector3.zero;
-
     private InventoryItemBase _InventoryItemBase = null;
-
     private HealthBar mHealthBar;
-
     private HealthBar mFoodBar;
-
     private WCLevel mWCLevel;
-
     private int startHealth;
-
     private int startLevel;
-
     private int startFood;
-
-
-    public InventoryItemBase TESTGATHER;
-
-
+    [SerializeField]
+    private bool UseNavMesh;
     #endregion
 
     #region Public Members
-
-    public float Speed = 5.0f;
-
-    public float RotationSpeed = 240.0f;
-
+    public InventoryItemBase TESTGATHER;
     public Inventory Inventory;
-
     public GameObject Hand;
-
     public GameObject _selectedUnit;
-
     public InteractableItemBase _rightClickItemToPickUp;
-
-    
-
     public HUD Hud;
-
     public ButtonListController _btnlstctrl;
-
-
-
-    public float JumpSpeed = 7.0f;
-
     #endregion
-    // Use this for initialization
+
+
     void Start()
     {
-
         HealthBarFindandSetValue();
         WcSkillFindandSetValue();
         FoodBarFindandSetValue();
@@ -77,17 +44,94 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navigationController = GetComponent<NavigationController>();
         _animControl = GameObject.FindObjectOfType<AnimationController>();
-        //_navMeshAgent.updatePosition = false;
-        //_navMeshAgent.updateRotation = false;
 
-        
         Inventory.ItemUsed += Inventory_ItemUsed; //Subscribing to the event. When ItemUsed is called it invokes the Inventory_ItemUsed method.
         Inventory.ItemRemoved += Inventory_ItemRemoved; //Subscribing to the event.
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
     }
 
 
+    // Update is called once per frame
+    void Update()
+    {
+        #region TestingReigon
+        TestingGatheringByPressingV();
+        TestingCastingByPressingL();
+        //start attackEnemyCoroutine when H is Pressed
+        TestAttackingEnemyByPressingH();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            List<int> m = new List<int>();
+            m.Add(5);
+
+            Debug.Log("m contains" + m[0]);
+
+            m.Clear();
+            Debug.Log("Cleared");
+            if (m.Count == 0)
+            {
+                Debug.Log("m is zero");
+            }
+        }
+        #endregion 
+
+
+        if (_navigationController._enableNavigation == true)
+        {
+            _navigationController.EnableNavMesh();
+            _navigationController.ClickToAutoMove();
+
+        }
+        else
+        {
+            _navigationController.DisableNavMesh(); //this is being called repeatedly, cache or something
+            _navigationController.EnableManualMove();
+        }
+
+
+
+        //Close Right Click Menu if not hovering over it
+        if (!Hud._isMouseOverRightClickMenu())
+        {
+            Hud.CloseRightClickMenu();
+            //Debug.Log("Closing Menu off hover");
+        }
+
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SelectTargetUsingRaycast();
+
+            Hud.RightClickMenu();
+        }
+
+
+
+        if (!IsDead && mIsControlEnabled)
+        {
+            // Interact with the item
+            if (mInteractItem != null && Input.GetKeyDown(KeyCode.F))
+            {
+                // Interact animation
+                mInteractItem.OnInteractAnimation(_animControl._animator);
+            }
+
+            // Execute action with item
+            if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
+            {
+                // Dont execute click if mouse pointer is over uGUI element
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    // TODO: Logic which action to execute has to come from the particular item
+                    _animControl.SetTrigger("attack_1");
+
+                }
+            }
+        }
+    }
 
     private void FoodBarFindandSetValue()
     {
@@ -128,38 +172,38 @@ public class PlayerController : MonoBehaviour
         currentItem.transform.parent = active ? Hand.transform : null;
     }
 
-                                //Using the events syetem
-                            private void Inventory_ItemRemoved(object sender, InventoryItemEventArgs e)
-                            {
-                                InventoryItemBase item = e.Item;
-                                
-                                GameObject goItem = (item as MonoBehaviour).gameObject;
-                                goItem.SetActive(true);
-                                goItem.transform.parent = null;
+    //Using the events syetem
+    private void Inventory_ItemRemoved(object sender, InventoryItemEventArgs e)
+    {
+        InventoryItemBase item = e.Item;
 
-                            }
+        GameObject goItem = (item as MonoBehaviour).gameObject;
+        goItem.SetActive(true);
+        goItem.transform.parent = null;
+
+    }
 
 
-                             private void Inventory_ItemUsed(object sender, InventoryItemEventArgs e)
-                             {
-                                if (e.Item.ItemType != EItemType.Consumable)//If the item is not consumable
-                                {
-                                    // If the player carries an item, un-use it (remove from player's hand)
-                                    if (_InventoryItemBase != null)
-                                    {
-                                        WeildItem(_InventoryItemBase, false);
-                                    }
+    private void Inventory_ItemUsed(object sender, InventoryItemEventArgs e)
+    {
+        if (e.Item.ItemType != EItemType.Consumable)//If the item is not consumable
+        {
+            // If the player carries an item, un-use it (remove from player's hand)
+            if (_InventoryItemBase != null)
+            {
+                WeildItem(_InventoryItemBase, false);
+            }
 
-                                    InventoryItemBase item = e.Item;
+            InventoryItemBase item = e.Item;
 
-                                    // Use item (put it to hand of the player)
-                                    WeildItem(item, true);
+            // Use item (put it to hand of the player)
+            WeildItem(item, true);
 
-                                    _InventoryItemBase = e.Item;
-                                    
-                                }
+            _InventoryItemBase = e.Item;
 
-                             }
+        }
+
+    }
 
     private int Attack_1_Hash = Animator.StringToHash("Base Layer.Attack_1");
 
@@ -168,7 +212,7 @@ public class PlayerController : MonoBehaviour
         get
         {
 
-            
+
             if (_animControl.GetStateFullHashPath() == Attack_1_Hash)
             {
                 Debug.Log("ISAttacking Method");
@@ -176,15 +220,14 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log("Not ISAttacking Method");
             return false;
-           
+
         }
     }
 
-    //???
+
     public void DropCurrentItem()
     {
         _animControl.SetTrigger("tr_drop");
-        //_animator.SetTrigger("tr_drop");
 
         GameObject goItem = (_InventoryItemBase as MonoBehaviour).gameObject;
 
@@ -332,150 +375,7 @@ public class PlayerController : MonoBehaviour
     private bool mIsControlEnabled = true;
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        #region TestingReigon
-        TestingGatheringByPressingV();
-        TestingCastingByPressingL();
-        //start attackEnemyCoroutine when H is Pressed
-        TestAttackingEnemyByPressingH();
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            List<int> m = new List<int>();
-            m.Add(5);
-
-            Debug.Log("m contains" + m[0]);
-
-            m.Clear();
-            Debug.Log("Cleared");
-            if (m.Count == 0)
-            {
-                Debug.Log("m is zero");
-            }
-
-
-        }
-        #endregion 
-
-
-        //Close Right Click Menu if not hovering over it
-        if (!Hud._isMouseOverRightClickMenu())
-        {
-            Hud.CloseRightClickMenu();
-            //Debug.Log("Closing Menu off hover");
-        }
-
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            SelectTargetUsingRaycast();
-
-            Hud.RightClickMenu();
-        }
-
-
-
-        if (!IsDead && mIsControlEnabled)
-        {
-            // Interact with the item
-            if (mInteractItem != null && Input.GetKeyDown(KeyCode.F))
-            {
-                // Interact animation
-                mInteractItem.OnInteractAnimation(_animControl._animator);
-            }
-
-            // Execute action with item
-            if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
-            {
-                // Dont execute click if mouse pointer is over uGUI element
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    // TODO: Logic which action to execute has to come from the particular item
-                    _animControl.SetTrigger("attack_1");
-
-                }
-            }
-
-
-            // Get Input for axis
-            float _horizontalAxis = Input.GetAxis("Horizontal");//forward & backward
-            float _verticalaxis = Input.GetAxis("Vertical");//Left & Right
-            // Calculate the forward vector
-            Vector3 _camerafacingdirection = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-            
-
-
-            Vector3 move = _verticalaxis * _camerafacingdirection + _horizontalAxis * Camera.main.transform.right;
-
-            if (move.magnitude > 1f)
-            {
-                move.Normalize();
-            }
-
-            // Calculate the rotation for the player
-            move = transform.InverseTransformDirection(move);
-
-            // Get Euler angles
-            float turnAmount = Mathf.Atan2(move.x, move.z);
-
-            transform.Rotate(0, turnAmount * RotationSpeed * Time.deltaTime, 0);
-
-            if (_characterController.isGrounded)
-            {
-                _moveDirection = transform.forward * move.magnitude;
-                _moveDirection *= Speed;
-
-                if (Input.GetButton("Jump"))
-                {
-                    _animControl.SetState("is_in_air", true);
-                    //_animator.SetBool("is_in_air", true);
-                    _moveDirection.y = JumpSpeed;
-
-                }
-                else
-                {
-                    _animControl.SetState("is_in_air", false);
-                    _animControl.SetState("run", move.magnitude > 0);
-
-                }
-            }
-
-            _moveDirection.y -= Gravity * Time.deltaTime;
-
-            _characterController.Move(_moveDirection * Time.deltaTime);
-
-            #region Enable NavMesh Agent Code (commented out)
-            //***************************************Enable Navmesh Agent***********************************
-
-            //Click to move script
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //RaycastHit hit;
-
-            //if(Input.GetMouseButtonDown(0))
-            //{
-            //    if(Physics.Raycast(ray,out hit, 100))
-            //    {
-            //        //_navMeshAgent.updatePosition = true;
-            //        //_navMeshAgent.updateRotation = true;
-            //        _navMeshAgent.destination = hit.point;
-            //        //_navMeshAgent.updatePosition = false;
-            //        //_navMeshAgent.updateRotation = false;
-            //    }
-            //}
-
-            //if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
-            //{
-            //    _animator.SetBool("run",false);
-            //}
-            //else
-            //{
-            //    _animator.SetBool("run", true);
-            //}
-            #endregion
-
-        }
-    }
+    //update moved from here
 
 
 
@@ -585,7 +485,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   void SelectTargetUsingRaycast()
+    void SelectTargetUsingRaycast()
     {
 
         //Sends a raycast out, if it hits an object with the tag (switch statement) it creates specalised buttons
@@ -607,14 +507,14 @@ public class PlayerController : MonoBehaviour
                 case "Enemy":
                     Hud.SetSelectedText("Enemy");
                     type = "Enemy";
-                    
+
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
-                    _btnlstctrl._Menuitemlist.Add("Examine"); 
+                    _btnlstctrl._Menuitemlist.Add("Examine");
                     //Debug.Log("added Examine");
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
-                    _btnlstctrl.ClearList();              
+                    _btnlstctrl.ClearList();
                     break;
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
@@ -624,7 +524,7 @@ public class PlayerController : MonoBehaviour
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
-                    
+
                     //_btnlstctrl.ButtonClicked("Pick Up");
                     //_rightClickItemToPickUp = _hit.collider.GetComponent<InteractableItemBase>();
                     //Debug.Log(_btnlstctrl._item.name + " Selected");
@@ -648,17 +548,6 @@ public class PlayerController : MonoBehaviour
                     _btnlstctrl.ClearList();
                     break;
             }
-
-            
-
-            //switch ()
-            //{
-            //    case :
-
-            //        break;
-            //}
-
-
         }
     }
 
@@ -671,7 +560,7 @@ public class PlayerController : MonoBehaviour
             _animControl.PlayAnim("Attack_1");
             yield return new WaitForSeconds(_wait_time_seconds);
         }
-        
+
     }
 
     private void OnRightClickTriggerClicked(Collider other)
