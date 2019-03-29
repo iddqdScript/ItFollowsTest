@@ -68,6 +68,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Chest.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Crate.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\DamageSource.cs" />
+    <Compile Include="Assets\1) ItFollowsAssets\Scripts\DayNightCycleController.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\FirstAid.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Food.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\WCLevel.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\WCTreeScript.cs" />
     <Compile Include="Assets\ExportTerrain.cs" />
+    <Compile Include="Assets\FireLightController.cs" />
     <Compile Include="Assets\GenericItem.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_InteractContainer.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_LightFlicker.cs" />
@@ -104,6 +106,13 @@
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_SurfaceNoise.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\Utility Scripts\MeshCombineUtility.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\Utility Scripts\QT_MeshCombineUtility.cs" />
+    <Compile Include="Assets\RainMaker\Demo\DemoScript.cs" />
+    <Compile Include="Assets\RainMaker\Demo\DemoScript2D.cs" />
+    <Compile Include="Assets\RainMaker\Demo\DemoScriptStartRainOnSpaceBar.cs" />
+    <Compile Include="Assets\RainMaker\Prefab\BaseRainScript.cs" />
+    <Compile Include="Assets\RainMaker\Prefab\RainCollision.cs" />
+    <Compile Include="Assets\RainMaker\Prefab\RainScript.cs" />
+    <Compile Include="Assets\RainMaker\Prefab\RainScript2D.cs" />
     <Compile Include="Assets\RPGPackFree\Scripts\BowString.cs" />
     <Compile Include="Assets\RPGPackFree\Scripts\OpenChest.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
@@ -185,6 +194,7 @@
     <None Include="Assets\zOldStuff\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
     <None Include="Assets\Quantum Theory\Polyworld\Shaders\VertexColors\IBL\VertexColorsDiffuseTexUnity5.shader" />
+    <None Include="Assets\RainMaker\Prefab\RainShader.shader" />
     <None Include="Assets\Quantum Theory\Polyworld\Shaders\VertexColors\IBL\VertexLitIBL.cginc" />
     <None Include="Assets\zOldStuff\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
@@ -231,6 +241,7 @@
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\Tonemapper.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\RainMaker\Readme.txt" />
     <None Include="Assets\Quantum Theory\Polyworld\Shaders\VertexColors\IBL\VertexColorsEmissiveUnity5_Linear.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
     <None Include="Assets\zOldStuff\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
