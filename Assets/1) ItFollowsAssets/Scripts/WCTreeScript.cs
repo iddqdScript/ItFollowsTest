@@ -13,7 +13,8 @@ public class WCTreeScript : MonoBehaviour
     private PlayerController Pcon;
     public Inventory Inventory;
     public static Inventory ActiveInventory;
-    public GameObject Player;
+    //public GameObject Player;
+    public string TreeType;
     public static GameObject ActivePlayer;
     public InventoryItemBase GatheredItem;
    // Gem gem = new Gem();
