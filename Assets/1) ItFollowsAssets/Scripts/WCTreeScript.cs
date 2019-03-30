@@ -85,10 +85,9 @@ public class WCTreeScript : MonoBehaviour
 
                 int logsleft = storedTreeLogs - i;
                 print("iteration = " + i);
-                //Debug.Log("       I is " + i);
-                Debug.Log(transform.name + " is being cut");
-                Debug.Log("<color=red>this tree has " + logsleft + " logs left</color>");
-                Debug.Log("waiting for " + wait_time + " seconds");
+               // Debug.Log(transform.name + " is being cut");
+               Debug.Log("<color=red>this tree has " + logsleft + " logs left</color>");
+                //Debug.Log("waiting for " + wait_time + " seconds");
                 yield return new WaitForSeconds(wait_time);
                 if (GatheredItem != null)
                 {
@@ -102,19 +101,19 @@ public class WCTreeScript : MonoBehaviour
 
                         ActiveInventory.AddItem(TG);
                         Object.Destroy(TG.transform.gameObject);
-                        Debug.Log("<color=green>LOG CUT</color>");
+                        //Debug.Log("<color=green>LOG CUT</color>");
                         //Debug.Log("TESTGATHER = " + GatheredItem);
 
                         //Debug.Log("Char Local Pos = " + transform.localPosition);
                     }
                     else
                     {
-                        Debug.Log("TG is null: " + TG);
+                       // Debug.Log("TG is null: " + TG);
                     }
                 }
                 else
                 {
-                    Debug.Log("GatheredItem is null: " + GatheredItem);
+                    //Debug.Log("GatheredItem is null: " + GatheredItem);
                 }
 
 
