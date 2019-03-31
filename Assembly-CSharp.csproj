@@ -101,6 +101,10 @@
     <Compile Include="Assets\ExportTerrain.cs" />
     <Compile Include="Assets\FireLightController.cs" />
     <Compile Include="Assets\GenericItem.cs" />
+    <Compile Include="Assets\MiniMap\_Demo\Player.cs" />
+    <Compile Include="Assets\MiniMap\_Scripts\MapObject.cs" />
+    <Compile Include="Assets\MiniMap\_Scripts\MiniMapComponent.cs" />
+    <Compile Include="Assets\MiniMap\_Scripts\MiniMapController.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_InteractContainer.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_LightFlicker.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_PolyWorldTerrain.cs" />
