@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     #region Private Members
     private AnimationController _animControl;
+    private AttackController _attackController;
     private Rigidbody _rigidbody;
     private NavigationController _navigationController;
     private NavMeshAgent _navMeshAgent;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navigationController = GetComponent<NavigationController>();
         _animControl = GameObject.FindObjectOfType<AnimationController>();
+        _attackController = GameObject.FindObjectOfType<AttackController>();
 
         Inventory.ItemUsed += Inventory_ItemUsed; //Subscribing to the event. When ItemUsed is called it invokes the Inventory_ItemUsed method.
         Inventory.ItemRemoved += Inventory_ItemRemoved; //Subscribing to the event.
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("moving in playercontroller" + IsPlayerMoving());
         #region TestingReigon
         TestingGatheringByPressingV();
         TestingCastingByPressingL();
@@ -66,8 +69,6 @@ public class PlayerController : MonoBehaviour
         {
             List<int> m = new List<int>();
             m.Add(5);
-
-            Debug.Log("m contains" + m[0]);
 
             m.Clear();
             Debug.Log("Cleared");
@@ -288,12 +289,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsPlayerMoving
+    //public bool IsPlayerMoving
+    //{
+    //    get
+    //    {
+    //        return _rigidbody.velocity.magnitude > 0.1f;
+    //    }
+    //}
+
+    public bool IsPlayerMoving()
     {
-        get
+
+        
+        if(_rigidbody.IsSleeping() == false)
         {
-            return _rigidbody.velocity.magnitude > 0.1f;
-        }
+            return true;
+        }else
+        return false;
     }
 
     public bool IsDead
@@ -395,11 +407,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            bool t = true;
-            if (t)
-            {
-                StartCoroutine(AttackEnemyThenWaitForSeconds(3));
-            }
+            //bool t = true;
+            //if (t)
+            //  {
+            // StartCoroutine(AttackEnemyThenWaitForSeconds(3));
+            StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1,10));
+
+           // }
         }
     }
 
@@ -407,7 +421,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            _animControl.PlayAnim("CastSpell");
+            //_animControl.PlayAnim("CastSpell");
+            _attackController.TestingCastingByPressingL();
         }
     }
 
@@ -549,18 +564,6 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-    }
-
-
-
-    IEnumerator AttackEnemyThenWaitForSeconds(int _wait_time_seconds)
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            _animControl.PlayAnim("Attack_1");
-            yield return new WaitForSeconds(_wait_time_seconds);
-        }
-
     }
 
     private void OnRightClickTriggerClicked(Collider other)
