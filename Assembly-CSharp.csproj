@@ -75,6 +75,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Food.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\GameManager.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Gem.cs" />
+    <Compile Include="Assets\1) ItFollowsAssets\Scripts\GroundPlacementController.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\HUD.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Inventory.cs" />
