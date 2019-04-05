@@ -23,6 +23,7 @@ public class InteractableItemBase : MonoBehaviour
     public virtual string _tag { get; protected set; }
     public Sprite Image;
     public string InteractText = "Press F to pickup the item";
+    public string _examineText = "";
     public EItemType ItemType;
     public Vector3 PickPosition; //The chosen position of the item on the character (set in the item inspector)
     public Vector3 PickRotation; //The chosen rotation of the item on the character (set in the item inspector)

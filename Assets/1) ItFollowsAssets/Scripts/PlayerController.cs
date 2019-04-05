@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public InteractableItemBase _rightClickItemToPickUp;
     public HUD Hud;
     public ButtonListController _btnlstctrl;
+    public InteractableItemBase _interactedWithItem = null;
     #endregion
 
 
@@ -526,6 +527,8 @@ public class PlayerController : MonoBehaviour
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl._Menuitemlist.Add("Walk Here");
+                    _btnlstctrl._Menuitemlist.Add("Cancel");
                     //Debug.Log("added Examine");
                     //Debug.Log("Health of this object is: " + _enemyScript.Health);
                     _btnlstctrl.GenerateList();
@@ -534,9 +537,11 @@ public class PlayerController : MonoBehaviour
                 case "UsableObject":
                     Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
-                    _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();
+                    _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();//This gets the item
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
                     _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl._Menuitemlist.Add("Walk Here");
+                    _btnlstctrl._Menuitemlist.Add("Cancel");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
 
@@ -553,6 +558,8 @@ public class PlayerController : MonoBehaviour
                     //_genericItemScript = GameObject.FindObjectOfType<GenericItem>();
                     //_btnlstctrl._Menuitemlist.Add("Interact " + _genericItemScript.name);
                     _btnlstctrl._Menuitemlist.Add("Examine");
+                    _btnlstctrl._Menuitemlist.Add("Walk Here");
+                    _btnlstctrl._Menuitemlist.Add("Cancel");
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
                     break;

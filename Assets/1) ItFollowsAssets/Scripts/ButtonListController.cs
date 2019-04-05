@@ -8,9 +8,11 @@ public class ButtonListController : MonoBehaviour {
     [SerializeField]
     private GameObject _buttonTemplate;
     private static List<string> _menuitemlist = new List<string>();
+    private HUD _Hud;
     private GameObject _ActivePlayer;
     private PlayerController _playerController;
     public InteractableItemBase _item = null;
+    
 
    
 
@@ -25,6 +27,7 @@ public class ButtonListController : MonoBehaviour {
     void Start()
     {
         _ActivePlayer = GameObject.Find("Low Poly Warrior");
+        _Hud = GameObject.FindObjectOfType<HUD>();
         _playerController = GameObject.FindObjectOfType<PlayerController>();
         //    Button _buttonTemplate = gameObject.transform.Find("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/Button").GetComponent<Button>();
         //    //_buttonTemplate = Resources.Load("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/ButtonListContent") as GameObject;
@@ -44,8 +47,22 @@ public class ButtonListController : MonoBehaviour {
         if (_myTextString == "Pick Up")
         {
             _playerController.RightClickInteractWithAnItem(_item);
-            //print(_item);
-            
+            _Hud.CloseRightClickMenu();
+        }
+        else if(_myTextString == "Examine")
+            {
+            _Hud.CloseRightClickMenu();
+            Debug.Log(_item._examineText);
+        }
+        else if (_myTextString == "Walk Here")
+        {
+            _Hud.CloseRightClickMenu();
+
+        }
+        else if (_myTextString == "Cancel")
+        {
+            _Hud.CloseRightClickMenu();
+
         }
     }
 
