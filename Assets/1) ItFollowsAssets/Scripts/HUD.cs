@@ -9,13 +9,16 @@ public class HUD : MonoBehaviour {
     public Inventory Inventory;
 
     public GameObject MessagePanel;
-    
+    public int _plusxpos;
+    public int _plusypos;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         Inventory.ItemAdded += InventoryScript_ItemAdded;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
-	}
+        _plusypos = 83;
+        _plusxpos = 47;
+    }
 
     private void InventoryScript_ItemAdded(object sender, InventoryItemEventArgs e)
     {
@@ -143,6 +146,7 @@ public class HUD : MonoBehaviour {
         float _mouseposX = Input.mousePosition.x;
         float _mouseposY = Input.mousePosition.y;
         float _mouseposZ = Input.mousePosition.z;
+
         
         var mp = Input.mousePosition;
 
@@ -150,7 +154,7 @@ public class HUD : MonoBehaviour {
         Transform _findRightClickMenu = gameObject.transform.Find("RightClickMenu");
         _findRightClickMenu.gameObject.SetActive(true);
         // Debug.Log("Position = " + g.position);
-        _findRightClickMenu.position = new Vector3(_mouseposX+20, _mouseposY-55, 0);
+        _findRightClickMenu.position = new Vector3(_mouseposX+ _plusxpos, _mouseposY- _plusypos, 0);
         Debug.Log("In RightClickMenu (HUD)");
 
 
