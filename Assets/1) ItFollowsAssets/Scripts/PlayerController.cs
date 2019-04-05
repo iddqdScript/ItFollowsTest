@@ -521,7 +521,7 @@ public class PlayerController : MonoBehaviour
             switch (_tag)
             {
                 case "Enemy":
-                    Hud.SetSelectedText("Enemy");
+                    //Hud.SetSelectedText("Enemy");
                     type = "Enemy";
 
                     _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
@@ -535,7 +535,7 @@ public class PlayerController : MonoBehaviour
                     _btnlstctrl.ClearList();
                     break;
                 case "UsableObject":
-                    Hud.SetSelectedText("UsableObject");
+                    //Hud.SetSelectedText("UsableObject");
                     type = "UsableObject";
                     _btnlstctrl._item = _hit.collider.GetComponent<InteractableItemBase>();//This gets the item
                     _btnlstctrl._Menuitemlist.Add("Pick Up");
@@ -553,7 +553,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 case "InteractableObject":
-                    Hud.SetSelectedText("InteractableObject");
+                    //Hud.SetSelectedText("InteractableObject");
                     type = "InteractableObject";
                     //_genericItemScript = GameObject.FindObjectOfType<GenericItem>();
                     //_btnlstctrl._Menuitemlist.Add("Interact " + _genericItemScript.name);

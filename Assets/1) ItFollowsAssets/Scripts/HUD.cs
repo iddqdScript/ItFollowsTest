@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+
 
 public class HUD : MonoBehaviour {
 
+    private TextMeshProUGUI _tag;
     public Inventory Inventory;
-
     public GameObject MessagePanel;
     public int _plusxpos;
     public int _plusypos;
 
     // Use this for initialization
     void Start () {
+        _tag = gameObject.transform.Find("SelectedPanel/Tag").GetComponent<TextMeshProUGUI>();
         Inventory.ItemAdded += InventoryScript_ItemAdded;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
         _plusypos = 83;
@@ -168,7 +171,7 @@ public class HUD : MonoBehaviour {
 
     public void SetSelectedText(string _selectedText)
     {
-        Text _tag = gameObject.transform.Find("SelectedPanel/Tag").GetComponent<Text>();
+        
         _tag.text = _selectedText;
         
        

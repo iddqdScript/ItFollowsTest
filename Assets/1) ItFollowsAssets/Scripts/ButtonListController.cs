@@ -52,7 +52,8 @@ public class ButtonListController : MonoBehaviour {
         else if(_myTextString == "Examine")
             {
             _Hud.CloseRightClickMenu();
-            Debug.Log(_item._examineText);
+            //Debug.Log(_item._examineText);
+            _Hud.SetSelectedText(_item._examineText);
         }
         else if (_myTextString == "Walk Here")
         {
