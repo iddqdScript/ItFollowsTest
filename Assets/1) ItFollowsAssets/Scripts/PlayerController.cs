@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
         }
         #endregion 
 
-
         if (_navigationController._enableNavigation == true)
         {
             _navigationController.EnableNavMesh();
@@ -509,7 +508,7 @@ public class PlayerController : MonoBehaviour
         int size;
         //string[] MenuArray = new string[];
         string type;
-        EnemyScript _enemyScript;
+        EnemyController _enemyScript;
         //InteractableItemBase i = GetComponent<InteractableItemBase>(); ;
         // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -524,7 +523,7 @@ public class PlayerController : MonoBehaviour
                     //Hud.SetSelectedText("Enemy");
                     type = "Enemy";
 
-                    _enemyScript = GameObject.FindObjectOfType<EnemyScript>();
+                    _enemyScript = GameObject.FindObjectOfType<EnemyController>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl._Menuitemlist.Add("Walk Here");
@@ -614,6 +613,16 @@ public class PlayerController : MonoBehaviour
         Hud.CloseMessagePanel();
 
         mInteractItem = null;
+    }
+
+
+    public float radius = 2f;
+
+void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
     }
 
 

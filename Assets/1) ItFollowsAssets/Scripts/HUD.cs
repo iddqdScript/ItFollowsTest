@@ -23,6 +23,8 @@ public class HUD : MonoBehaviour {
         _plusxpos = 47;
     }
 
+
+
     private void InventoryScript_ItemAdded(object sender, InventoryItemEventArgs e)
     {
         Transform inventoryPanel = transform.Find("InventPanelButtons/InventoryPanel");

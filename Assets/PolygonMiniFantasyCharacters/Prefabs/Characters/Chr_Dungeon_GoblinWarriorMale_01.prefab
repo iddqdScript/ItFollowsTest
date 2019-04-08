@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4141632177056838}
   - component: {fileID: 95451665552484950}
-  - component: {fileID: 1809670631}
   m_Layer: 0
   m_Name: Chr_Dungeon_GoblinWarriorMale_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +43,7 @@ Animator:
   m_GameObject: {fileID: 1009295489438026}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e6f8c6b4cd0c5d24fbefebd224edfdb5, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6863730e77788484c969fa6a1701b42c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -53,33 +52,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &1809670631
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009295489438026}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400036, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  m_Animations:
-  - {fileID: 7400016, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400018, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400020, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400022, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400024, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400026, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400028, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400030, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400032, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400034, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400036, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  - {fileID: 7400056, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
 --- !u!1 &1030806273286872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,18 +1371,6 @@ PrefabInstance:
     - target: {fileID: 4363749778080852, guid: e600491f73a29184299be916770e9832, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 39.870987
-      objectReference: {fileID: 0}
-    - target: {fileID: 4363749778080852, guid: e600491f73a29184299be916770e9832, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4363749778080852, guid: e600491f73a29184299be916770e9832, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4363749778080852, guid: e600491f73a29184299be916770e9832, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e600491f73a29184299be916770e9832, type: 3}

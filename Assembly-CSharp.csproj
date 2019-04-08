@@ -70,7 +70,7 @@
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Crate.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\DamageSource.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\DayNightCycleController.cs" />
-    <Compile Include="Assets\1) ItFollowsAssets\Scripts\EnemyScript.cs" />
+    <Compile Include="Assets\1) ItFollowsAssets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\FirstAid.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\Food.cs" />
     <Compile Include="Assets\1) ItFollowsAssets\Scripts\GameManager.cs" />
@@ -108,6 +108,7 @@
     <Compile Include="Assets\MiniMap\_Scripts\MapObject.cs" />
     <Compile Include="Assets\MiniMap\_Scripts\MiniMapComponent.cs" />
     <Compile Include="Assets\MiniMap\_Scripts\MiniMapController.cs" />
+    <Compile Include="Assets\OverheadText.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_InteractContainer.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_LightFlicker.cs" />
     <Compile Include="Assets\Quantum Theory\Polyworld\Scripts\QT_PolyWorldTerrain.cs" />

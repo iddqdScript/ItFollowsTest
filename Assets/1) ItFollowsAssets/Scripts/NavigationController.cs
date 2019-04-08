@@ -30,7 +30,7 @@ public class NavigationController : MonoBehaviour
         _characterController = _activePlayer.GetComponent<CharacterController>();
 
         // _navMeshAgent = GameObject.FindObjectOfType<NavMeshAgent>();
-
+        _enableNavigation = true;
     }
 
     // Update is called once per frame
