@@ -59,9 +59,12 @@ public class NavigationController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out hit, 100))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                _navMeshAgent.destination = hit.point;
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    _navMeshAgent.destination = hit.point;
+                }
             }
         }
 

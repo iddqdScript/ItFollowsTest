@@ -11,10 +11,12 @@ public class ButtonListController : MonoBehaviour {
     private HUD _Hud;
     private GameObject _ActivePlayer;
     private PlayerController _playerController;
+    private AttackController _attackController;
     public InteractableItemBase _item = null;
-    
+    public string _enemyName;
+    public EnemyController _enemyScript;
 
-   
+
 
     public List<string> _Menuitemlist 
     {
@@ -29,6 +31,8 @@ public class ButtonListController : MonoBehaviour {
         _ActivePlayer = GameObject.Find("Low Poly Warrior");
         _Hud = GameObject.FindObjectOfType<HUD>();
         _playerController = GameObject.FindObjectOfType<PlayerController>();
+        _attackController = _ActivePlayer.GetComponent<AttackController>();
+
         //    Button _buttonTemplate = gameObject.transform.Find("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/Button").GetComponent<Button>();
         //    //_buttonTemplate = Resources.Load("HUD/RightClickMenu/ButtonListViewport/ButtonListContent/ButtonListContent") as GameObject;
     }
@@ -63,6 +67,17 @@ public class ButtonListController : MonoBehaviour {
         else if (_myTextString == "Cancel")
         {
             _Hud.CloseRightClickMenu();
+
+        }
+        else if (_myTextString == "Attack")
+        {
+            
+            StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1, 10));
+            _enemyName = _enemyScript._enemyName;
+            _enemyScript._isBeingAttacked = true; //dont forget to trigger this off on death or switching enemy
+            Debug.Log("Attacking" + _enemyName);
+            _Hud.MoveAndHideRightclickMenu();
+
 
         }
     }

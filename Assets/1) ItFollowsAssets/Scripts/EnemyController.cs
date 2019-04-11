@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour {
     private bool mIsDead = false;
     public GameObject[] ItemsDeadState = null;
     public Vector3 _followDistance;
+    public string _enemyName;
+    public bool _isBeingAttacked = false;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,7 @@ public class EnemyController : MonoBehaviour {
         _playerController = Player.GetComponent<PlayerController>();
         mAnimator = GetComponent<Animator>();
     }
+
 
     private bool IsNavMeshMoving
     {
@@ -93,6 +96,11 @@ public class EnemyController : MonoBehaviour {
 
         mAgent.destination = Player.transform.position;
         mAgent.stoppingDistance = _playerController.radius;
+
+        if(_isBeingAttacked == true)
+        {
+            mAnimator.SetTrigger("attack_1");
+        }
 
         //mAgent.SetDestination(newPos);
 

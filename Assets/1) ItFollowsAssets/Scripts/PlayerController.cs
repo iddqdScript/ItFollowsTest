@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
         //Close Right Click Menu if not hovering over it
         if (!Hud._isMouseOverRightClickMenu())
         {
-            Hud.CloseRightClickMenu();
+            //Hud.CloseRightClickMenu();
+            Hud.MoveAndHideRightclickMenu();
             //Debug.Log("Closing Menu off hover");
         }
 
@@ -121,19 +122,32 @@ public class PlayerController : MonoBehaviour
             }
 
             // Execute action with item
-            if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
-            {
-                // Dont execute click if mouse pointer is over uGUI element
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    // TODO: Logic which action to execute has to come from the particular item
-                    _animControl.SetTrigger("attack_1");
+            //if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
+            //{
+            //    // Dont execute click if mouse pointer is over uGUI element
+            //    if (!EventSystem.current.IsPointerOverGameObject())
+            //    {
+            //        // TODO: Logic which action to execute has to come from the particular item
+            //        _animControl.SetTrigger("attack_1");
 
-                }
-            }
+            //    }
+            //}
         }
     }
 
+    private void AttackIfWeildingAWeapon()
+    {
+        if (_InventoryItemBase != null && Input.GetMouseButtonDown(0))
+        {
+            // Dont execute click if mouse pointer is over uGUI element
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                // TODO: Logic which action to execute has to come from the particular item
+                _animControl.SetTrigger("attack_1");
+
+            }
+        }
+    }
     private void FoodBarFindandSetValue()
     {
         mFoodBar = Hud.transform.Find("Bars_Panel/FoodBar").GetComponent<HealthBar>();
@@ -403,7 +417,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void TestAttackingEnemyByPressingH()
+    public void TestAttackingEnemyByPressingH()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -508,7 +522,7 @@ public class PlayerController : MonoBehaviour
         int size;
         //string[] MenuArray = new string[];
         string type;
-        EnemyController _enemyScript;
+        
         //InteractableItemBase i = GetComponent<InteractableItemBase>(); ;
         // = new ButtonListController();
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -523,7 +537,8 @@ public class PlayerController : MonoBehaviour
                     //Hud.SetSelectedText("Enemy");
                     type = "Enemy";
 
-                    _enemyScript = GameObject.FindObjectOfType<EnemyController>();
+
+                    _btnlstctrl._enemyScript = GameObject.FindObjectOfType<EnemyController>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl._Menuitemlist.Add("Walk Here");
@@ -562,6 +577,7 @@ public class PlayerController : MonoBehaviour
                     _btnlstctrl.GenerateList();
                     _btnlstctrl.ClearList();
                     break;
+
                 default:
                     _btnlstctrl._Menuitemlist.Add("Walk Here");
                     _btnlstctrl._Menuitemlist.Add("Cancel");

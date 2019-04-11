@@ -13,6 +13,8 @@ public class HUD : MonoBehaviour {
     public GameObject MessagePanel;
     public int _plusxpos;
     public int _plusypos;
+    public int _hiddenOffSreenX;
+    public int _hiddenOffSreenY;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +23,8 @@ public class HUD : MonoBehaviour {
         Inventory.ItemRemoved += Inventory_ItemRemoved;
         _plusypos = 83;
         _plusxpos = 47;
+        _hiddenOffSreenX = -115;
+        _hiddenOffSreenY = -115;
     }
 
 
@@ -169,6 +173,18 @@ public class HUD : MonoBehaviour {
     {
         Transform g = gameObject.transform.Find("RightClickMenu");
         g.gameObject.SetActive(false);
+    }
+
+    public void HideRightclickMenu()
+    {
+        Transform g = gameObject.transform.Find("RightClickMenu");
+        g.GetComponent<Image>().enabled = false;
+    }
+
+    public void MoveAndHideRightclickMenu()
+    {
+        Transform g = gameObject.transform.Find("RightClickMenu");
+        g.position = new Vector3(_hiddenOffSreenX, _hiddenOffSreenY, 0);
     }
 
     public void SetSelectedText(string _selectedText)
