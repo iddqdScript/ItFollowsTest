@@ -74,8 +74,12 @@ public class ButtonListController : MonoBehaviour {
             
             StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1, 10));
             _enemyName = _enemyScript._enemyName;
+
+            //if enemy name is not previous enemy name, isBeingAttacked = false?
+
+
             _enemyScript._isBeingAttacked = true; //dont forget to trigger this off on death or switching enemy
-            Debug.Log("Attacking" + _enemyName);
+            Debug.Log("Attacking " + _enemyName);
             _Hud.MoveAndHideRightclickMenu();
 
 

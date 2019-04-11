@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
+
+
+
+
+
     void Start()
     {
         HealthBarFindandSetValue();
@@ -55,6 +60,26 @@ public class PlayerController : MonoBehaviour
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
     }
 
+
+    void FixedUpdate()
+    {
+
+        // If your player movement uses physics(rigidbody attached), then definitely separate your player input to Update() and movement to FixedUpdate() for the best performance.
+        //If there's no rigidbody invloved do everything in Update().
+        //Calling player input in FixedUpdate() is terrible, it can cause all sort of bugs, and doing physics in Update() is terrible for performance.
+        //A general rule of thumb is if you are affecting a rigidbody through script, use FixedUpdate for everything else use Update
+
+        //Declare a variable at the start of your script, set it in Update according to player input, and check it in FixedUpdate to see if things should happen.
+
+        if (!IsDead)
+        {
+            // Drop item
+            if (_InventoryItemBase != null && Input.GetKeyDown(KeyCode.R))
+            {
+                DropCurrentItem();
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -386,17 +411,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("worked");
     }
 
-    void FixedUpdate()
-    {
-        if (!IsDead)
-        {
-            // Drop item
-            if (_InventoryItemBase != null && Input.GetKeyDown(KeyCode.R))
-            {
-                DropCurrentItem();
-            }
-        }
-    }
 
     private bool mIsControlEnabled = true;
 
@@ -538,7 +552,7 @@ public class PlayerController : MonoBehaviour
                     type = "Enemy";
 
 
-                    _btnlstctrl._enemyScript = GameObject.FindObjectOfType<EnemyController>();
+                    _btnlstctrl._enemyScript = _hit.collider.GetComponent<EnemyController>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl._Menuitemlist.Add("Walk Here");

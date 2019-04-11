@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour {
     public Vector3 _followDistance;
     public string _enemyName;
     public bool _isBeingAttacked = false;
+    public string _status = "";
 
     // Use this for initialization
     void Start()
@@ -99,25 +100,15 @@ public class EnemyController : MonoBehaviour {
 
         if(_isBeingAttacked == true)
         {
+            _status = "attacking";
             mAnimator.SetTrigger("attack_1");
         }
 
-        //mAgent.SetDestination(newPos);
-
-
-
-
-        //Debug.Log("newpos is " + newPos);
-        //Debug.Log("Sheep position is " + transform.position);
-        //Debug.Log("player position is " + Player.transform.position);
-
-
-
-
-
-
-
         mAnimator.SetBool("walk", IsNavMeshMoving);
+        if(IsNavMeshMoving)
+        {
+            _status = "Walking";
+        }
 
     }
 }

@@ -9,8 +9,10 @@ using TMPro;
 public class HUD : MonoBehaviour {
 
     private TextMeshProUGUI _tag;
+    private TextMeshProUGUI _overhead;
     public Inventory Inventory;
     public GameObject MessagePanel;
+
     public int _plusxpos;
     public int _plusypos;
     public int _hiddenOffSreenX;
@@ -18,13 +20,19 @@ public class HUD : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        
         _tag = gameObject.transform.Find("SelectedPanel/Tag").GetComponent<TextMeshProUGUI>();
+        
         Inventory.ItemAdded += InventoryScript_ItemAdded;
         Inventory.ItemRemoved += Inventory_ItemRemoved;
         _plusypos = 83;
         _plusxpos = 47;
         _hiddenOffSreenX = -115;
         _hiddenOffSreenY = -115;
+
+
+        //Transform _hud = GetComponent<HUD>().transform;
+        //CreateText(_hud, 0, 200, "GeneratedText", 30);
     }
 
 
@@ -195,6 +203,45 @@ public class HUD : MonoBehaviour {
        
     }
 
+    void CreateTextMeshProObjectForOverheadText()
+    {
+
+    }
+
+    //public GameObject CreateText(Transform canvas_transform, float x, float y, string text_to_print, int font_size)
+    //{
+    //    GameObject UItextGO = new GameObject("OverheadGenerated");
+    //    UItextGO.transform.SetParent(canvas_transform);
+
+    //    RectTransform trans = UItextGO.AddComponent<RectTransform>();
+    //    trans.anchoredPosition = new Vector2(x, y);
+
+    //    TextMeshProUGUI text = UItextGO.AddComponent<TextMeshProUGUI>();
+    //    text.text = text_to_print;
+    //    text.fontSize = font_size;
+    //    return UItextGO;
+    //}
+
+
+    public TextMeshProUGUI CreateText(Transform canvas_transform, float x, float y, string text_to_print, int font_size, TextAlignmentOptions align)
+    {
+        GameObject UItextGO = new GameObject("OverheadGenerated");
+        UItextGO.transform.SetParent(canvas_transform);
+
+        RectTransform trans = UItextGO.AddComponent<RectTransform>();
+        trans.anchoredPosition = new Vector2(x, y);
+
+        TextMeshProUGUI text = UItextGO.AddComponent<TextMeshProUGUI>();
+        text.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/runescape_uf SDF");
+        text.text = text_to_print;
+        text.fontSize = font_size;
+        text.alignment = align;
+        
+        //Font f = (TextMeshPro)Resources.Load("JapaneseTextMeshPro", typeof(TextMeshPro));
+        //text.font = f;
+
+        return text;
+    }
 
     public bool _isMouseOverRightClickMenu()
     {
