@@ -79,6 +79,19 @@ public class PlayerController : MonoBehaviour
                 DropCurrentItem();
             }
         }
+
+         if (_navigationController._enableNavigation == true)
+        {
+            _navigationController.EnableNavMesh();
+            _navigationController.ClickToAutoMove();
+
+        }
+        else
+        {
+            _navigationController.DisableNavMesh(); //this is being called repeatedly, cache or something
+            _navigationController.EnableWASDMove();
+        }
+
     }
 
     // Update is called once per frame
@@ -105,17 +118,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion 
 
-        if (_navigationController._enableNavigation == true)
-        {
-            _navigationController.EnableNavMesh();
-            _navigationController.ClickToAutoMove();
-
-        }
-        else
-        {
-            _navigationController.DisableNavMesh(); //this is being called repeatedly, cache or something
-            _navigationController.EnableWASDMove();
-        }
+       
 
 
 
@@ -439,7 +442,7 @@ public class PlayerController : MonoBehaviour
             //if (t)
             //  {
             // StartCoroutine(AttackEnemyThenWaitForSeconds(3));
-            StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1,10));
+            //StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1,10));
 
            // }
         }
@@ -552,7 +555,7 @@ public class PlayerController : MonoBehaviour
                     type = "Enemy";
 
 
-                    _btnlstctrl._enemyScript = _hit.collider.GetComponent<EnemyController>();
+                    _btnlstctrl._enemyClicked = _hit.collider.GetComponent<EnemyController>();
                     _btnlstctrl._Menuitemlist.Add("Attack");
                     _btnlstctrl._Menuitemlist.Add("Examine");
                     _btnlstctrl._Menuitemlist.Add("Walk Here");
@@ -647,13 +650,19 @@ public class PlayerController : MonoBehaviour
 
 
     public float radius = 2f;
+    public float _rangeRadius = 10f;
 
 void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _rangeRadius);
+
     }
+
+
 
 
 }

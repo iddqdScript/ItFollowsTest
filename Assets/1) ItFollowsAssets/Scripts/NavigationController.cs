@@ -64,6 +64,8 @@ public class NavigationController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, 100))
                 {
                     _navMeshAgent.destination = hit.point;
+                    //Vector3 _movement = transform.forward * Time.deltaTime * Speed;
+                    //_navMeshAgent.Move(_movement);
                 }
             }
         }

@@ -18,7 +18,7 @@ public class OverheadText : MonoBehaviour
         //Debug.Log("HUD " + _hud);
 
         TextMeshProUGUI _generatedTextGameObject = _HUD.CreateText(_hud, 0, 200, "Hi!", 20, TextAlignmentOptions.Center);
-        Debug.Log("_generatedTextGameObject " + _generatedTextGameObject);
+        //Debug.Log("_generatedTextGameObject " + _generatedTextGameObject);
         _overheadText = _generatedTextGameObject.GetComponent<TextMeshProUGUI>();
     }
 
@@ -34,6 +34,7 @@ public class OverheadText : MonoBehaviour
         Vector3 namePose = Camera.main.WorldToScreenPoint(this.transform.position);
         _overheadText.transform.position = namePose;
     }
+
 
 
 

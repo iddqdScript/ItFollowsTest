@@ -105,6 +105,7 @@
     <Compile Include="Assets\ExportTerrain.cs" />
     <Compile Include="Assets\FireLightController.cs" />
     <Compile Include="Assets\GenericItem.cs" />
+    <Compile Include="Assets\MeleeRadiusGoblins.cs" />
     <Compile Include="Assets\MiniMap\_Demo\Player.cs" />
     <Compile Include="Assets\MiniMap\_Scripts\MapObject.cs" />
     <Compile Include="Assets\MiniMap\_Scripts\MiniMapComponent.cs" />

@@ -14,7 +14,7 @@ public class ButtonListController : MonoBehaviour {
     private AttackController _attackController;
     public InteractableItemBase _item = null;
     public string _enemyName;
-    public EnemyController _enemyScript;
+    public EnemyController _enemyClicked;
 
 
 
@@ -71,14 +71,15 @@ public class ButtonListController : MonoBehaviour {
         }
         else if (_myTextString == "Attack")
         {
-            
-            StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1, 10));
-            _enemyName = _enemyScript._enemyName;
+            Transform _target = _enemyClicked.transform;
+            StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1, 10, _target));
+            _enemyName = _enemyClicked._enemyName;
 
             //if enemy name is not previous enemy name, isBeingAttacked = false?
 
 
-            _enemyScript._isBeingAttacked = true; //dont forget to trigger this off on death or switching enemy
+            _enemyClicked._isBeingAttacked = true; //dont forget to trigger this off on death or switching enemy
+
             Debug.Log("Attacking " + _enemyName);
             _Hud.MoveAndHideRightclickMenu();
 
