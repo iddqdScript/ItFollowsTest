@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemClickHandler : MonoBehaviour
 {
-    public Inventory _Inventory;
+    public Inventoryold _Inventory;
 
     public KeyCode _Key;
 

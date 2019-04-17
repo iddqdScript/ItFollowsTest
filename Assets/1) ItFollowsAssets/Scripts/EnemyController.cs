@@ -95,9 +95,9 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (mIsDead)
-            return;
-        Vector3 v = new Vector3(-1,0, -1);
+        //if (mIsDead)
+        //    return;
+        //Vector3 v = new Vector3(-1,0, -1);
 
         // Only runaway if player is armed
         // bool isPlayerArmed = Player.GetComponent<PlayerController>().IsArmed;

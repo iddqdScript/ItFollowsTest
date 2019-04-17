@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     #region Public Members
     public InventoryItemBase TESTGATHER;
-    public Inventory Inventory;
+    public Inventoryold Inventory;
     public GameObject Hand;
     public GameObject _selectedUnit;
     public InteractableItemBase _rightClickItemToPickUp;

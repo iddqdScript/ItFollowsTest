@@ -10,7 +10,7 @@ public class HUD : MonoBehaviour {
 
     private TextMeshProUGUI _tag;
     private TextMeshProUGUI _overhead;
-    public Inventory Inventory;
+    public Inventoryold Inventory;
     public GameObject MessagePanel;
 
     public int _plusxpos;
