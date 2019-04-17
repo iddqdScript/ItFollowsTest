@@ -6,23 +6,32 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BoxCollider))]
+//[RequireComponent(typeof(Rigidbody))]
 
 public class EnemyController : MonoBehaviour {
 
-
-    public int Health = 10;
+    [SerializeField]
+    private GameObject _weildedWeapon;
     private NavMeshAgent _navMeshAgent;
     private PlayerController _playerController;
-    private Animator mAnimator;
+    private Animator _animator;
+    private bool mIsDead = false;
+    private float _meleeRange = 3f;
+    private float _magicBowRange = 6f;//tie these to weapons
+    private float _aggroRange = 20f;
+    private Rigidbody _rigidbody;
+    private Vector3 _startPosition;
+
+    public int Health = 10;
     public GameObject Player;
     public float EnemyDistanceRun = 4.0f;
-    private bool mIsDead = false;
     public GameObject[] ItemsDeadState = null;
     public Vector3 _followDistance;
     public string _enemyName;
     public bool _isBeingAttacked = false;
     public string _status = "";
-    private float _meleeRange = 3f;
+
+
 
 
     // Use this for initialization
@@ -30,7 +39,10 @@ public class EnemyController : MonoBehaviour {
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _playerController = Player.GetComponent<PlayerController>();
-        mAnimator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _startPosition = transform.position;
+        Debug.Log(_startPosition);
     }
 
 
@@ -55,7 +67,7 @@ public class EnemyController : MonoBehaviour {
                 {
                     mIsDead = true;
                     _navMeshAgent.enabled = false;
-                    mAnimator.SetTrigger("death");
+                    _animator.SetTrigger("death");
                     Destroy(GetComponent<Rigidbody>());
                     Debug.Log(transform.name + " is ded");
 
@@ -105,16 +117,30 @@ public class EnemyController : MonoBehaviour {
 
         if (_isBeingAttacked == true)
         {
-
-            if(IsInMeleeDistance())
+            _navMeshAgent.isStopped = false;
+            if (IsInMeleeDistance())
             {
                 _status = "attacking";
-                mAnimator.SetTrigger("attack_1");
+                _animator.SetTrigger("attack_1");
             }
             else
             {
-                LookAtAttackingPlayer();
-                Move();
+                if (IsInAggroDistance())
+                {
+                    LookAtAttackingPlayer();
+                    MoveToPlayer();
+                }
+                else
+                {
+                    _navMeshAgent.isStopped = true;
+                    _animator.SetBool("run", false);
+                    _isBeingAttacked = false;
+
+                    ///run back to starting position and stop animating when out of aggro range
+                     MoveToCustomPosition(_startPosition);
+                    //_animator.SetBool("run", false);
+                    //////////////
+                }
             }
             
 
@@ -130,12 +156,21 @@ public class EnemyController : MonoBehaviour {
 
     }
 
-    private void Move()
+    private void MoveToCustomPosition(Vector3 postition)
     {
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.destination = postition;
+        _animator.SetBool("run", IsNavMeshMoving);
+    }
+
+
+    private void MoveToPlayer()
+    {
+        _navMeshAgent.isStopped = false;
         Vector3 newPos = Player.transform.position;//transform.position - dirToPlayer;
         _navMeshAgent.destination = Player.transform.position;
         _navMeshAgent.stoppingDistance = _playerController.radius;
-        mAnimator.SetBool("walk", IsNavMeshMoving);
+        _animator.SetBool("run", IsNavMeshMoving);
     }
 
     public void LookAtAttackingPlayer()
@@ -154,10 +189,28 @@ public class EnemyController : MonoBehaviour {
 
     }
 
+    public bool IsInAggroDistance()
+    {
+
+        if (Vector3.Distance(Player.transform.position, transform.position) <= _aggroRange)
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position, _meleeRange);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, _magicBowRange);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, _aggroRange);
 
     }
 }
