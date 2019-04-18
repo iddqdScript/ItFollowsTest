@@ -88,7 +88,7 @@ public class EnemyController : MonoBehaviour {
         Destroy(GetComponent<CapsuleCollider>());
 
         // Hide the sheep mesh
-        transform.Find("sheep_mesh").GetComponent<SkinnedMeshRenderer>().enabled = false;
+        //transform.Find("sheep_mesh").GetComponent<SkinnedMeshRenderer>().enabled = false;
     }
 
 
@@ -114,10 +114,14 @@ public class EnemyController : MonoBehaviour {
         //Debug.Log("Agent Stopped " + _navMeshAgent.isStopped);
 
 
-
+        
         if (_isBeingAttacked == true)
         {
-            _navMeshAgent.isStopped = false;
+            if (_navMeshAgent.isStopped == true)
+            {
+                _navMeshAgent.isStopped = false;
+            }
+
             if (IsInMeleeDistance())
             {
                 _status = "attacking";
@@ -132,7 +136,7 @@ public class EnemyController : MonoBehaviour {
                 }
                 else
                 {
-                    _navMeshAgent.isStopped = true;
+                    //_navMeshAgent.isStopped = true;
                     _animator.SetBool("run", false);
                     _isBeingAttacked = false;
 

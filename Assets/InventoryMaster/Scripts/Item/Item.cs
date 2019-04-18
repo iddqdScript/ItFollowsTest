@@ -16,6 +16,8 @@ public class Item
     public int maxStack = 1;
     public int indexItemInList = 999;    
     public int rarity;
+    public Vector3 pickposition;
+    public Vector3 pickrotation;
 
     [SerializeField]
     public List<ItemAttribute> itemAttributes = new List<ItemAttribute>();    
@@ -32,6 +34,7 @@ public class Item
         itemType = type;
         this.maxStack = maxStack;
         this.itemAttributes = itemAttributes;
+
     }
 
     public Item getCopy()

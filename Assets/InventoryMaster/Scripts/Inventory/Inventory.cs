@@ -58,6 +58,9 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     public static bool inventoryOpen;
 
+    private float _temporaryXPosition = -0.001f;
+    private float _temporaryYPosition = 0.00114f;
+    private float _temporaryZPosition = 7e-05f;
 
     //GUI Settings
     [SerializeField]
@@ -196,13 +199,30 @@ public class Inventory : MonoBehaviour
     public void EquiptItem(Item item)
     {
         if (ItemEquip != null)
+        {
             ItemEquip(item);
+            Debug.Log("pick position item is" + item.pickposition);
+            Debug.Log("prefab rotation item is" + item.pickrotation);
+            Debug.Log("prefab item is" + prefabItem);
+            //item.itemModel.transform.localPosition = item.pickposition;
+            //item.itemModel.transform.localEulerAngles = item.pickrotation;
+            //prefabItem.transform.localPosition = _pickupitem.PickPosition;
+            //prefabItem.transform.localEulerAngles = _pickupitem.PickRotation;
+
+            GameObject _equipItem = (GameObject)Instantiate(item.itemModel);
+            _equipItem.transform.localPosition = new Vector3(_temporaryXPosition,_temporaryYPosition,_temporaryZPosition);
+
+
+
+
+        }
     }
 
     public void UnEquipItem1(Item item)
     {
         if (UnEquipItem != null)
             UnEquipItem(item);
+
     }
 
 #if UNITY_EDITOR

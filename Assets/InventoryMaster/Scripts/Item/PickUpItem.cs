@@ -6,6 +6,9 @@ public class PickUpItem : MonoBehaviour
     private Inventory _inventory;
     private GameObject _player;
     // Use this for initialization
+    public Vector3 PickPosition; //The chosen position of the item on the character (set in the item inspector)
+    public Vector3 PickRotation; //The chosen rotation of the item on the character (set in the item inspector)
+
 
     void Start()
     {

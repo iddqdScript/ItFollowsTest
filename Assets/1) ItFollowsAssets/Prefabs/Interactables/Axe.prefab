@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23468792291046216}
   - component: {fileID: 65628676450711718}
   - component: {fileID: 114504625821932792}
+  - component: {fileID: 114308931941497810}
   m_Layer: 0
   m_Name: Axe
   m_TagString: UsableObject
@@ -27,8 +28,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691237590736490}
-  m_LocalRotation: {x: 0.0012795905, y: -0.030333458, z: -0.023741316, w: 0.999257}
-  m_LocalPosition: {x: 4.387, y: 0.042, z: 0.651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 0.00114, z: 0.00007}
   m_LocalScale: {x: 100.00003, y: 100.00003, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,3 +115,32 @@ MonoBehaviour:
   DropRotation: {x: -4.263, y: -3.489, z: -2.46}
   UseItemAfterPickup: 1
   Damage: 10
+--- !u!114 &114308931941497810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691237590736490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2579761e16114d94d874d2a9a06887e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    itemName: 
+    itemID: 0
+    itemDesc: 
+    itemIcon: {fileID: 0}
+    itemModel: {fileID: 0}
+    itemValue: 1
+    itemType: 0
+    itemWeight: 0
+    maxStack: 1
+    indexItemInList: 999
+    rarity: 0
+    pickposition: {x: 0, y: 0, z: 0}
+    pickrotation: {x: 0, y: 0, z: 0}
+    itemAttributes: []
+  PickPosition: {x: 0, y: 0, z: 0}
+  PickRotation: {x: 0, y: 0, z: 0}
