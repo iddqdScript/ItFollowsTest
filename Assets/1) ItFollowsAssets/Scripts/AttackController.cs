@@ -12,6 +12,9 @@ public class AttackController : MonoBehaviour
     private NavMeshAgent _navMesh;
     private ButtonListController _buttonListController;
     public bool _shouldInterrupt = false;
+    private float _meleeRange = 3f;
+    private float _magicBowRange = 6f;//tie these to weapons
+    public EnemyController _clickedEnemy = null;
 
 
     // Start is called before the first frame update
@@ -24,6 +27,8 @@ public class AttackController : MonoBehaviour
 
     private void Update()
     {
+        if(_clickedEnemy != null)
+        Debug.Log("Clicked enemy is " + _clickedEnemy.name);
         //ShouldInterrupt(); //this is causing him to stop his attacking cycle when facing the target to attack
         //should I make it interrupt when I click? instead of when the Character is moving by a milliinch?
     }
@@ -45,14 +50,40 @@ public class AttackController : MonoBehaviour
             }
             else
             {
-                _animController.PlayAnim("Attack_1");
-                yield return new WaitForSeconds(_wait_time_seconds);
-               
+                
+                    _animController.PlayAnim("Attack_1");
+                    yield return new WaitForSeconds(_wait_time_seconds);
+                
             }
         }
     }
 
+    //private bool IsInMeleeDistance()
+    //{
+    //    if (_clickedEnemy != null)
+    //    {
+    //        if (Vector3.Distance(_clickedEnemy.transform.position, transform.position) <= _clickedEnemy._meleeRange)
+    //        {
+    //            return true;
+    //        }
+    //        else
+    //            return false;
+    //    }
+    //    else return false;
+    //}
 
+    //private void MoveToEnemy()
+    //{
+    //    if (_clickedEnemy != null)
+    //    {
+    //        _navMesh.isStopped = false;
+    //        Vector3 newPos = _clickedEnemy.transform.position;//transform.position - dirToPlayer;
+    //        _navMesh.destination = _clickedEnemy.transform.position;
+    //        //_navMesh.stoppingDistance = this._magicBowRange;
+            
+    //        //_animator.SetBool("run", IsNavMeshMoving);
+    //    }
+    //}
 
     public void TestingCastingByPressingL()
     {
@@ -62,13 +93,14 @@ public class AttackController : MonoBehaviour
         }
     }
 
-    private void ShouldInterrupt()
+    private bool ShouldInterrupt()
     {
 
-        if (_playerController.IsPlayerMoving())
-        {
-            _shouldInterrupt = true;
-        }
+        //if (_playerController.IsPlayerMoving())
+        //{
+        //    _shouldInterrupt = true;
+        //}
+        return true;
 
     }
 

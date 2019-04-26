@@ -74,6 +74,7 @@ public class ButtonListController : MonoBehaviour {
             Transform _target = _enemyClicked.transform;
             StartCoroutine(_attackController.AttackEnemyThenWaitForSeconds(1, 10, _target));
             _enemyName = _enemyClicked._enemyName;
+            _attackController._clickedEnemy = _enemyClicked;
 
             //if enemy name is not previous enemy name, isBeingAttacked = false?
 

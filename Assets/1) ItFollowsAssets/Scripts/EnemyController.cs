@@ -16,8 +16,8 @@ public class EnemyController : MonoBehaviour {
     private PlayerController _playerController;
     private Animator _animator;
     private bool mIsDead = false;
-    private float _meleeRange = 3f;
-    private float _magicBowRange = 6f;//tie these to weapons
+    public float _meleeRange = 3f;
+    public float _magicBowRange = 6f;//tie these to weapons
     private float _aggroRange = 20f;
     private Rigidbody _rigidbody;
     private Vector3 _startPosition;
@@ -59,21 +59,21 @@ public class EnemyController : MonoBehaviour {
         InteractableItemBase item = collision.collider.gameObject.GetComponent<InteractableItemBase>();
         if (item != null)
         {
+            //-------------------This causes enemy to die, disabling for now
+            //// Hit by a weapon
+            //if (item.ItemType == EItemType.Weapon)
+            //{
+            //    if (Player.GetComponent<PlayerController>().IsAttacking)
+            //    {
+            //        mIsDead = true;
+            //        _navMeshAgent.enabled = false;
+            //        _animator.SetTrigger("death");
+            //        Destroy(GetComponent<Rigidbody>());
+            //        Debug.Log(transform.name + " is ded");
 
-            // Hit by a weapon
-            if (item.ItemType == EItemType.Weapon)
-            {
-                if (Player.GetComponent<PlayerController>().IsAttacking)
-                {
-                    mIsDead = true;
-                    _navMeshAgent.enabled = false;
-                    _animator.SetTrigger("death");
-                    Destroy(GetComponent<Rigidbody>());
-                    Debug.Log(transform.name + " is ded");
-
-                    Invoke("ShowItemsDeadState", 1.2f);
-                }
-            }
+            //        Invoke("ShowItemsDeadState", 1.2f);
+            //    }
+            //}
         }
     }
 
@@ -114,7 +114,7 @@ public class EnemyController : MonoBehaviour {
         //Debug.Log("Agent Stopped " + _navMeshAgent.isStopped);
 
 
-        
+
         if (_isBeingAttacked == true)
         {
             if (_navMeshAgent.isStopped == true)
@@ -141,19 +141,19 @@ public class EnemyController : MonoBehaviour {
                     _isBeingAttacked = false;
 
                     ///run back to starting position and stop animating when out of aggro range
-                     MoveToCustomPosition(_startPosition);
+                    MoveToCustomPosition(_startPosition);
                     //_animator.SetBool("run", false);
                     //////////////
                 }
             }
-            
 
 
-            
-        }
 
-        
-        if(IsNavMeshMoving)
+
+            }
+
+
+            if (IsNavMeshMoving)
         {
             _status = "Walking";
         }
@@ -182,7 +182,7 @@ public class EnemyController : MonoBehaviour {
         transform.LookAt(_playerController.transform);
     }
 
-    public bool IsInMeleeDistance()
+    private bool IsInMeleeDistance()
     {
 
         if (Vector3.Distance(Player.transform.position, transform.position) <= _meleeRange)
@@ -193,7 +193,7 @@ public class EnemyController : MonoBehaviour {
 
     }
 
-    public bool IsInAggroDistance()
+    private bool IsInAggroDistance()
     {
 
         if (Vector3.Distance(Player.transform.position, transform.position) <= _aggroRange)

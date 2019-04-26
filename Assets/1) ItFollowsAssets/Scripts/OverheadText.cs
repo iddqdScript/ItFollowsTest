@@ -18,6 +18,7 @@ public class OverheadText : MonoBehaviour
         //Debug.Log("HUD " + _hud);
 
         TextMeshProUGUI _generatedTextGameObject = _HUD.CreateText(_hud, 0, 200, "Hi!", 20, TextAlignmentOptions.Center);
+        _generatedTextGameObject.raycastTarget = false;
         //Debug.Log("_generatedTextGameObject " + _generatedTextGameObject);
         _overheadText = _generatedTextGameObject.GetComponent<TextMeshProUGUI>();
     }
